@@ -1,0 +1,10 @@
+name: RezxisMCHosting
+main: net.rezxis.mchosting.lobby.Lobby
+version: 0.2
+commands:
+  menu:
+    description: Show RezxisRealms menu
+  connect:
+    description: Connect to my server
+  stopall:
+    description: A command for staffs

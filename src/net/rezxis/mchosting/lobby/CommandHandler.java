@@ -10,28 +10,34 @@ import org.bukkit.entity.Player;
 import com.google.gson.Gson;
 
 import net.rezxis.mchosting.databse.DBServer;
-import net.rezxis.mchosting.gui.GuiOpener;
-import net.rezxis.mchosting.lobby.gui.MainGui;
+import net.rezxis.mchosting.databse.ServerStatus;
+import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
+import net.rezxis.mchosting.lobby.gui2.mine.MyRealmMenu;
+import net.rezxis.mchosting.lobby.gui2.servers.ServersMenu;
 import net.rezxis.mchosting.network.packet.sync.SyncStopServer;
 
 public class CommandHandler {
 
-	@SuppressWarnings("deprecation")
 	public static boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("menu")) {
-			GuiOpener.open((Player) sender, MainGui.gui);
-		} else if (cmd.getName().equalsIgnoreCase("connect")) {
+		String name = cmd.getName();
+		if (name.equalsIgnoreCase("menu") || name.equalsIgnoreCase("realm")) {
+			new MainMenu((Player) sender).delayShow();
+		} else if (name.equalsIgnoreCase("servers")) {
+			new ServersMenu((Player) sender, 1, false).delayShow();
+		} else if (name.equalsIgnoreCase("manage")) {
+			new MyRealmMenu((Player) sender).delayShow();
+		} else if (name.equalsIgnoreCase("connect")) {
 			DBServer server = Lobby.instance.sTable.get(((Player)sender).getUniqueId());
 			if (server == null) {
 				sender.sendMessage(ChatColor.RED+"あなたはサーバーを持っていません。");
 				return true;
 			}
-			if (server.getPort() == -1) {
+			if (server.getStatus() != ServerStatus.RUNNING) {
 				sender.sendMessage(ChatColor.RED+"あなたのサーバーは起動していません。");
 				return true;
 			}
 			Lobby.instance.connect((Player)sender);
-		} else if (cmd.getName().equalsIgnoreCase("stopall")) {
+		} else if (name.equalsIgnoreCase("stopall")) {
 			if (sender.isOp()) {
 				ArrayList<DBServer> online = Lobby.instance.sTable.getOnlineServers();
 				Gson gson = new Gson();
@@ -42,6 +48,8 @@ public class CommandHandler {
 			} else {
 				sender.sendMessage(ChatColor.RED+"The Command is not allowed to use");
 			}
+		} else if (name.equalsIgnoreCase("menu2")) {
+			new MainMenu((Player)sender).delayShow();
 		}
 		return true;
 	}

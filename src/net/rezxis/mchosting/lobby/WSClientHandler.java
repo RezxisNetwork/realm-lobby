@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.java_websocket.handshake.ServerHandshake;
 
 import com.google.gson.Gson;
@@ -40,7 +41,10 @@ public class WSClientHandler implements ClientHandler {
 		PacketType type = packet.type;
 		if (type == PacketType.ServerStarted) {
 			LobbyServerStarted p = gson.fromJson(message, LobbyServerStarted.class);
-			if (Bukkit.getPlayer(UUID.fromString(p.player)).isOnline()) {
+			Player player =Bukkit.getPlayer(UUID.fromString(p.player));
+			if (player == null)
+				return;
+			if (player.isOnline()) {
 				TextComponent c = new TextComponent("接続");
 				c.setUnderlined(true);
                 c.setColor(ChatColor.GOLD);
@@ -49,17 +53,21 @@ public class WSClientHandler implements ClientHandler {
                 TextComponent msg = new TextComponent("サーバーが起動しました。");
                 msg.setColor(ChatColor.AQUA);
                 msg.addExtra(c);
-                Bukkit.getPlayer(UUID.fromString(p.player)).spigot().sendMessage(msg);
+                player.spigot().sendMessage(msg);
 				//Bukkit.getPlayer(UUID.fromString(sPacket.getPlayer())).sendMessage(ChatColor.AQUA+"サーバーが起動しました！");
 			}
 		} else if (type == PacketType.ServerStopped) {
 			LobbyServerStopped p = gson.fromJson(message, LobbyServerStopped.class);
-			if (Bukkit.getPlayer(UUID.fromString(p.player)).isOnline())
-				Bukkit.getPlayer(UUID.fromString(p.player)).sendMessage(ChatColor.AQUA+"サーバーが停止しました！");
+			Player player = Bukkit.getPlayer(UUID.fromString(p.player));
+			if (player != null)
+				if (player.isOnline())
+					player.sendMessage(ChatColor.AQUA+"サーバーが停止しました！");
 		} else if (type == PacketType.ServerCreated) {
 			LobbyServerCreated p = gson.fromJson(message, LobbyServerCreated.class);
-			if (Bukkit.getPlayer(UUID.fromString(p.player)).isOnline())
-				Bukkit.getPlayer(UUID.fromString(p.player)).sendMessage(ChatColor.AQUA+"サーバーが作成されました。起動してください！");
+			Player player = Bukkit.getPlayer(UUID.fromString(p.player));
+			if (player != null)
+				if (player.isOnline())
+					player.sendMessage(ChatColor.AQUA+"サーバーが作成されました。起動してください！");
 		}
 	}
 

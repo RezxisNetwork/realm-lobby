@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.databse.DBServer;
 import net.rezxis.mchosting.databse.Database;
+import net.rezxis.mchosting.databse.tables.FilesTable;
+import net.rezxis.mchosting.databse.tables.PlayersTable;
 import net.rezxis.mchosting.databse.tables.ServersTable;
 import net.rezxis.mchosting.network.WSClient;
 import net.rezxis.mchosting.network.packet.sync.SyncPlayerSendPacket;
@@ -22,6 +24,8 @@ public class Lobby extends JavaPlugin {
 	public static Lobby instance;
 	public WSClient ws;
 	public ServersTable sTable;
+	public PlayersTable pTable;
+	public FilesTable fTable;
 	public Props props;
 	
 	@Override
@@ -31,6 +35,8 @@ public class Lobby extends JavaPlugin {
 		//connect DB and get servers which online from DB
 		Database.init();
 		sTable = new ServersTable();
+		pTable = new PlayersTable();
+		fTable = new FilesTable();
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
 		
 		new Thread(()->{

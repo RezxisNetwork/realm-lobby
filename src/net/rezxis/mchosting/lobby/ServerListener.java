@@ -13,8 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.rezxis.mchosting.gui.GuiOpener;
-import net.rezxis.mchosting.lobby.gui.MainGui;
+import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 
 public class ServerListener implements Listener {
 
@@ -37,13 +36,12 @@ public class ServerListener implements Listener {
 		event.getPlayer().getInventory().setItem(4, menu);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		if (event.getItem() != null)
-			if (event.getItem().equals(menu)) {
-				GuiOpener.open(event.getPlayer(), new MainGui());
-			}
+			if (event.getItem().equals(menu))
+				new MainMenu(event.getPlayer()).delayShow();
+			
 	}
 	
 	@EventHandler

@@ -1,16 +1,21 @@
 package net.rezxis.mchosting.lobby;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.databse.DBPlayer;
 import net.rezxis.mchosting.databse.DBServer;
 import net.rezxis.mchosting.databse.Database;
 import net.rezxis.mchosting.databse.tables.FilesTable;
@@ -27,6 +32,8 @@ public class Lobby extends JavaPlugin {
 	public PlayersTable pTable;
 	public FilesTable fTable;
 	public Props props;
+	public HashMap<UUID,DBPlayer> players = new HashMap<>();
+	public HashMap<UUID,Scoreboard> boards = new HashMap<>();
 	
 	@Override
 	public void onEnable() {
@@ -38,6 +45,19 @@ public class Lobby extends JavaPlugin {
 		pTable = new PlayersTable();
 		fTable = new FilesTable();
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
+			public void run() {
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					DBPlayer player = players.get(p.getUniqueId());
+					player.sync();
+					Scoreboard board = boards.get(p.getUniqueId());
+					board.getObjective("info").unregister();;
+					Objective obj = board.registerNewObjective("info", "dummy");
+					BoardListeners.updateBoard(obj, player);
+					p.setScoreboard(board);
+				}
+			}
+		}, 0L, 20L*4);
 		
 		new Thread(()->{
 				try {

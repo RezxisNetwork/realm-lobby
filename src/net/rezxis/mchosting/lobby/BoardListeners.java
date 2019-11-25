@@ -21,7 +21,7 @@ public class BoardListeners implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		DBPlayer player = Lobby.instance.pTable.get(event.getPlayer().getUniqueId());
 		if (player == null) {
-			player = new DBPlayer(-1, event.getPlayer().getUniqueId(), Rank.NORMAL, 0, new int[] {0,0,0});
+			player = new DBPlayer(-1, event.getPlayer().getUniqueId(), Rank.NORMAL, 0);
 			Lobby.instance.pTable.insert(player);
 		}
 		for (Scoreboard board : Lobby.instance.boards.values()) {

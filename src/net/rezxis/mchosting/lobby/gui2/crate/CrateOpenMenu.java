@@ -23,7 +23,7 @@ public class CrateOpenMenu extends GUIWindow {
     private CrateTypes type;
 
     public CrateOpenMenu(DBCrate crate, Player player) {
-        super(player, crate.getType(), 9*6, Lobby.instance);
+        super(player, crate.getType().getName(), 6, Lobby.instance);
     }
 
     @Override

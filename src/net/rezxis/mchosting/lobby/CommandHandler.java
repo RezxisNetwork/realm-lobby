@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import net.rezxis.mchosting.databse.DBServer;
 import net.rezxis.mchosting.databse.ServerStatus;
+import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 import net.rezxis.mchosting.lobby.gui2.mine.MyRealmMenu;
 import net.rezxis.mchosting.lobby.gui2.servers.ServersMenu;
@@ -26,7 +27,9 @@ public class CommandHandler {
 			new ServersMenu((Player) sender, 1, false).delayShow();
 		} else if (name.equalsIgnoreCase("manage")) {
 			new MyRealmMenu((Player) sender).delayShow();
-		} else if (name.equalsIgnoreCase("connect")) {
+		} else if (name.equalsIgnoreCase("crate")) {
+			new CrateMenu((Player) sender).delayShow();
+		}else if (name.equalsIgnoreCase("connect")) {
 			DBServer server = Lobby.instance.sTable.get(((Player)sender).getUniqueId());
 			if (server == null) {
 				sender.sendMessage(ChatColor.RED+"あなたはサーバーを持っていません。");
@@ -48,8 +51,6 @@ public class CommandHandler {
 			} else {
 				sender.sendMessage(ChatColor.RED+"The Command is not allowed to use");
 			}
-		} else if (name.equalsIgnoreCase("menu2")) {
-			new MainMenu((Player)sender).delayShow();
 		}
 		return true;
 	}

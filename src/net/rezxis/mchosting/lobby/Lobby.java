@@ -47,6 +47,7 @@ public class Lobby extends JavaPlugin {
 		pTable = new PlayersTable();
 		fTable = new FilesTable();
 		cTable = new CrateTable();
+		Bukkit.getPluginManager().registerEvents(new BoardListeners(), this);
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
 			public void run() {

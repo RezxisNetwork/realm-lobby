@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.UUID;
 
+import net.rezxis.mchosting.databse.tables.CrateTable;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,6 +32,7 @@ public class Lobby extends JavaPlugin {
 	public ServersTable sTable;
 	public PlayersTable pTable;
 	public FilesTable fTable;
+	public CrateTable cTable;
 	public Props props;
 	public HashMap<UUID,DBPlayer> players = new HashMap<>();
 	public HashMap<UUID,Scoreboard> boards = new HashMap<>();
@@ -44,6 +46,7 @@ public class Lobby extends JavaPlugin {
 		sTable = new ServersTable();
 		pTable = new PlayersTable();
 		fTable = new FilesTable();
+		cTable = new CrateTable();
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
 			public void run() {

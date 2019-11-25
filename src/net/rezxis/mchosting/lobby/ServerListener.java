@@ -1,11 +1,13 @@
 package net.rezxis.mchosting.lobby;
 
 
+import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -38,6 +40,14 @@ public class ServerListener implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
+		{
+			if (event.getClickedBlock() != null) {
+				if (event.getClickedBlock().getType() == Material.TRAPPED_CHEST) {
+					new CrateMenu(event.getPlayer()).delayShow();
+				}
+			}
+		}
 		if (event.getItem() != null)
 			if (event.getItem().equals(menu))
 				new MainMenu(event.getPlayer()).delayShow();

@@ -19,6 +19,7 @@ public class MainMenu extends GUIWindow {
 		HashMap<Integer, GUIItem> map = new HashMap<>();
 		setItem(11, new ServersItem(), map);
 		setItem(13, new YourRealmItem(), map);
+		setItem(15, new CrateMenuItem(), map);
 		return map;
 	}
 }

@@ -18,9 +18,9 @@ public class CrateMenuItem extends GUIItem {
 	}
 	
 	private static ItemStack getIcon() {
-		ItemStack is = new ItemStack(Material.GOLD_NUGGET);
+		ItemStack is = new ItemStack(Material.LAVA_BUCKET);
 		ItemMeta im = is.getItemMeta();
-		im.setDisplayName(ChatColor.LIGHT_PURPLE+"報酬箱を開ける。");
+		im.setDisplayName(ChatColor.AQUA+"報酬箱"+ChatColor.LIGHT_PURPLE+"を開ける。");
 		is.setItemMeta(im);
 		return is;
 	}

@@ -20,7 +20,7 @@ public class CrateMenu extends GUIWindow {
 
     public CrateMenu(Player player) {
         super(player, "Crates", 5, Lobby.instance);
-        crates = Lobby.instance.cTable.getCrates(this.getPlayer().getUniqueId(),45);
+        crates = Lobby.instance.cTable.getCrates(player.getUniqueId(),45);
     }
 
     @Override

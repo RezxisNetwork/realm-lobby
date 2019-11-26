@@ -1,7 +1,6 @@
 package net.rezxis.mchosting.lobby.gui2.crate;
 
 import net.rezxis.mchosting.databse.DBCrate;
-import net.rezxis.mchosting.databse.crates.CrateTypes;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;
@@ -13,14 +12,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class CrateItem extends GUIItem {
-    private static DBCrate crate;
+    private DBCrate crate;
 
-    public CrateItem(DBCrate crate) { super(getIcon()); }
+    public CrateItem(DBCrate crate) { 
+    	super(getIcon(crate));
+    	this.crate = crate;
+    }
 
-    public static ItemStack getIcon() {
-        ItemStack is = new ItemStack(Material.getMaterial(CrateTypes.getByCrate(crate).getDisplayItem()));
+    public static ItemStack getIcon(DBCrate crate) {
+        ItemStack is = new ItemStack(Material.valueOf(crate.getType().getDisplayItem()));
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.translateAlternateColorCodes('&',CrateTypes.getByCrate(crate).getName()));
+        im.setDisplayName(ChatColor.translateAlternateColorCodes('&',crate.getType().getName()));
         is.setItemMeta(im);
         return is;
     }

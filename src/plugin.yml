@@ -16,3 +16,5 @@ commands:
     description: A command for staffs
   crate:
     description: Show RezxisRealms menu
+  manager:
+    description: Manage all servers

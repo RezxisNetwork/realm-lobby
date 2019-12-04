@@ -8,6 +8,7 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.databse.DBPlayer;
 import net.rezxis.mchosting.databse.DBServer;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;
@@ -42,19 +43,29 @@ public class ServersMenu extends GUIWindow {
 		if (page > 1) {
 			setItem(0,5, new BackPageItem(page,all), map);
 		}
-		
-		if (servers.size() == 0) {
-			setItem(4,2, new NoServersItem(), map);
-			return map;
-		} else {
-			setItem(4, 5, new RandomItem(all), map);
-		}
 		for (DBServer server : servers) {
 			server.sync();
 		}
 		int sIndex = 0 + 21*(page-1);//=<20
 		int a = 0;
 		Collections.sort(servers, new Sort());
+		if (all) {
+			ArrayList<DBPlayer> ofb = Lobby.instance.pTable.ofbPlayers();
+			for (DBPlayer dpp : ofb) {
+				if (!dpp.isExpiredRank()) {
+					DBServer sss = Lobby.instance.sTable.get(dpp.getUUID());
+					if (sss != null) {
+						servers.add(sss);
+					}
+				}
+			}
+		}
+		if (servers.size() == 0) {
+			setItem(4,2, new NoServersItem(), map);
+			return map;
+		} else {
+			setItem(4, 5, new RandomItem(all), map);
+		}
 		for (int i = sIndex; i <= sIndex+20; i++) {
 			if (i == servers.size())
 				break;

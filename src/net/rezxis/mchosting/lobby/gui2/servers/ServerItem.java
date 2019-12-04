@@ -9,12 +9,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.google.gson.Gson;
+
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.databse.DBPlayer;
 import net.rezxis.mchosting.databse.DBServer;
+import net.rezxis.mchosting.databse.ServerStatus;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;
+import net.rezxis.mchosting.network.packet.sync.SyncStartServer;
 
 public class ServerItem extends GUIItem {
 
@@ -39,6 +43,9 @@ public class ServerItem extends GUIItem {
 		lore.add("");
 		lore.add(ChatColor.GRAY+"オンラインのプレイヤー "+ChatColor.GREEN+String.valueOf(server.getPlayers())+ChatColor.GRAY+"/"+String.valueOf(dp.getRank().getMaxPlayers()));
 		lore.add(ChatColor.WHITE+"主: "+Bukkit.getOfflinePlayer(server.getOwner()).getName());
+		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.getOfflineBoot()) {
+			lore.add(ChatColor.LIGHT_PURPLE+"クリックで起動");
+		}
 		im.setLore(lore);
 		is.setItemMeta(im);
 		return is;
@@ -46,7 +53,13 @@ public class ServerItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		Lobby.instance.connect((Player) e.getWhoClicked(),server);
+		DBPlayer dp = Lobby.instance.pTable.get(server.getOwner());
+		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.getOfflineBoot()) {
+			Lobby.instance.ws.send(new Gson().toJson(new SyncStartServer(server.getOwner().toString())));
+			e.getWhoClicked().sendMessage(ChatColor.AQUA+"起動中");
+		} else {
+			Lobby.instance.connect((Player) e.getWhoClicked(),server);
+		}
 		return GUIAction.CLOSE;
 	}
 }

@@ -47,7 +47,6 @@ public class Lobby extends JavaPlugin {
 		pTable = new PlayersTable();
 		fTable = new FilesTable();
 		cTable = new CrateTable();
-		Bukkit.getPluginManager().registerEvents(new BoardListeners(), this);
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
 			public void run() {
@@ -55,9 +54,11 @@ public class Lobby extends JavaPlugin {
 					DBPlayer player = players.get(p.getUniqueId());
 					player.sync();
 					Scoreboard board = boards.get(p.getUniqueId());
+					if (board == null)
+						continue;
 					board.getObjective("info").unregister();;
 					Objective obj = board.registerNewObjective("info", "dummy");
-					BoardListeners.updateBoard(obj, player);
+					ServerListener.updateBoard(obj, player);
 					p.setScoreboard(board);
 				}
 			}

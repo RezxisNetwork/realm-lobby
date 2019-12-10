@@ -89,6 +89,7 @@ public class CrateOpenMenu extends GUIWindow {
                 	com.map.remove(key);
                 }
                 if (com.map.size() == 0) {
+                	new CrateMenu((Player) e.getWhoClicked()).delayShow();
                 	return GUIAction.CLOSE;
                 }
                 return GUIAction.UPDATE;

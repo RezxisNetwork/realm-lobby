@@ -30,6 +30,7 @@ public class MyRealmMenu extends GUIWindow {
 				setItem(2, new RenameItem(server), map);
 				setItem(3, new RenameMotdItem(server), map);
 				setItem(6, new CommandBlockItem(server), map);
+				setItem(7, new BackupMenuItem(), map);
 				setItem(8, new DeleteServerItem(), map);
 			}
 		}

@@ -58,6 +58,10 @@ public class ServerStatusItem extends GUIItem {
 			is = new ItemStack(Material.WOOL,1,DyeColor.ORANGE.getWoolData());
 			im = is.getItemMeta();
 			im.setDisplayName(ChatColor.GREEN+"再起動中");
+		} else if (server.getStatus() == ServerStatus.BACKUP) {
+			is = new ItemStack(Material.WOOL,1,DyeColor.GRAY.getWoolData());
+			im = is.getItemMeta();
+			im.setDisplayName(ChatColor.GRAY+"バックアップ操作中");
 		}
 		is.setItemMeta(im);
 		return is;

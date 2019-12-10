@@ -18,11 +18,13 @@ public class ServersMenu extends GUIWindow {
 	
 	private int page;
 	private boolean all;
+	private String sort;
 	
-	public ServersMenu(Player player,int page, boolean all) {
+	public ServersMenu(Player player,int page, boolean all, String sort) {
 		super(player,ChatColor.AQUA+"Realm List Page : "+page, 6, Lobby.instance);
 		this.page = page;
 		this.all = all;
+		this.sort = sort;
 		//21 servers per 1 page 7x3
 	}
 
@@ -30,6 +32,7 @@ public class ServersMenu extends GUIWindow {
 	public HashMap<Integer, GUIItem> getOptions() {
 		HashMap<Integer, GUIItem> map = new HashMap<>();
 		// TODO Auto-generated method stub
+		setItem(1, 5, new SortsItem(page,all,sort), map);
 		ArrayList<DBServer> servers = null;
 		if (all) {
 			servers = Lobby.instance.sTable.getOnlineServers();
@@ -37,18 +40,22 @@ public class ServersMenu extends GUIWindow {
 			servers = Lobby.instance.sTable.getOnlineServersVisible();
 		}
 		if (!all)
-			setItem(0, new ShowAllServers(), map);
+			setItem(0, new ShowAllServers(sort), map);
 		if (servers.size() > 21*page)
-			setItem(8,5, new NextPageItem(page,all), map);
+			setItem(8,5, new NextPageItem(page,all,sort), map);
 		if (page > 1) {
-			setItem(0,5, new BackPageItem(page,all), map);
+			setItem(0,5, new BackPageItem(page,all,sort), map);
 		}
 		for (DBServer server : servers) {
 			server.sync();
 		}
 		int sIndex = 0 + 21*(page-1);//=<20
 		int a = 0;
-		Collections.sort(servers, new Sort());
+		if (sort.equalsIgnoreCase("players")) {
+			Collections.sort(servers, new Sort());
+		} else {
+			Collections.sort(servers, new ScoreSort());
+		}
 		if (all) {
 			ArrayList<DBPlayer> ofb = Lobby.instance.pTable.ofbPlayers();
 			for (DBPlayer dpp : ofb) {
@@ -75,6 +82,15 @@ public class ServersMenu extends GUIWindow {
 			a++;
 		}
 		return map;
+	}
+	
+	private class ScoreSort implements Comparator<DBServer> {
+
+		@Override
+		public int compare(DBServer o1, DBServer o2) {
+			return o1.getVote() < o2.getVote() ? 1: -1;
+		}
+		
 	}
 	
 	private class Sort implements Comparator<DBServer> {

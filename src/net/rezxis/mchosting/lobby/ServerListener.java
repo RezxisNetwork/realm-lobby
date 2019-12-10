@@ -4,8 +4,6 @@ import net.rezxis.mchosting.databse.DBPlayer;
 import net.rezxis.mchosting.databse.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 
-import java.util.Date;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -18,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -45,13 +44,15 @@ public class ServerListener implements Listener {
 	}
 	
 	@EventHandler
+	public void onLeft(PlayerQuitEvent event) {
+		event.setQuitMessage(null);
+	}
+	
+	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
+		event.setJoinMessage(null);
 		event.getPlayer().getInventory().setItem(4, menu);
 		DBPlayer player = Lobby.instance.pTable.get(event.getPlayer().getUniqueId());
-		if (player == null) {
-			player = new DBPlayer(-1, event.getPlayer().getUniqueId(), Rank.NORMAL, 0, false, new Date());
-			Lobby.instance.pTable.insert(player);
-		}
 		if (player.isExpiredRank()) {
 			player.setRank(Rank.NORMAL);
 			player.setOfflineBoot(false);

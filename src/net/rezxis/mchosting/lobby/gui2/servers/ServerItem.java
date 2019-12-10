@@ -43,6 +43,7 @@ public class ServerItem extends GUIItem {
 		lore.add("");
 		lore.add(ChatColor.GRAY+"オンラインのプレイヤー "+ChatColor.GREEN+String.valueOf(server.getPlayers())+ChatColor.GRAY+"/"+String.valueOf(dp.getRank().getMaxPlayers()));
 		lore.add(ChatColor.WHITE+"主: "+Bukkit.getOfflinePlayer(server.getOwner()).getName());
+		lore.add(ChatColor.WHITE+"投票: "+ChatColor.AQUA+server.getVote());
 		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.getOfflineBoot()) {
 			lore.add(ChatColor.LIGHT_PURPLE+"クリックで起動");
 		}

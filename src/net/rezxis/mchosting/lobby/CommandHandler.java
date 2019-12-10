@@ -1,6 +1,8 @@
 package net.rezxis.mchosting.lobby;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,7 +33,7 @@ public class CommandHandler {
 		if (name.equalsIgnoreCase("menu") || name.equalsIgnoreCase("realm")) {
 			new MainMenu((Player) sender).delayShow();
 		} else if (name.equalsIgnoreCase("servers")) {
-			new ServersMenu((Player) sender, 1, false).delayShow();
+			new ServersMenu((Player) sender, 1, false,"players").delayShow();
 		} else if (name.equalsIgnoreCase("manage")) {
 			new MyRealmMenu((Player) sender).delayShow();
 		} else if (name.equalsIgnoreCase("crate")) {
@@ -163,6 +165,37 @@ public class CommandHandler {
 				}
 			} else {
 				sender.sendMessage(ChatColor.RED+"The Command is not allowed to use");
+			}
+		} else if (name.equalsIgnoreCase("vote")) {
+			if (args.length != 1) {
+				sender.sendMessage(ChatColor.RED+"投票方法: /vote <投票対象サーバーのオーナー名>");
+			} else {
+				OfflinePlayer opl = Bukkit.getOfflinePlayer(args[0]);
+				if (opl == null) {
+					sender.sendMessage(ChatColor.RED+args[0]+"は存在しません。");
+					return true;
+				} else {
+					DBPlayer self = Lobby.instance.pTable.get(((Player)sender).getUniqueId());
+					if (self.getNextVote().after(new Date())) {
+						sender.sendMessage(ChatColor.RED+"投票は一日一回のみです。");
+						return true;
+					} else {
+						DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+						if (server == null) {
+							sender.sendMessage(ChatColor.RED+args[0]+"はサーバーを持ってません。");
+							return true;
+						} else {
+							server.addVote(1);
+							server.update();
+							Calendar calendar = Calendar.getInstance();
+							calendar.setTime(new Date());
+							calendar.add(Calendar.DAY_OF_WEEK, 1);
+							self.setNextVote(calendar.getTime());
+							self.update();
+							sender.sendMessage(server.getDisplayName()+ChatColor.GREEN+"に投票しました。");
+						}
+					}
+				}
 			}
 		}
 		return true;

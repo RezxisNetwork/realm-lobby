@@ -18,3 +18,5 @@ commands:
     description: Show RezxisRealms menu
   manager:
     description: Manage all servers
+  vote:
+    description: Vote to child server.

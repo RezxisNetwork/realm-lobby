@@ -12,8 +12,11 @@ import net.rezxis.mchosting.gui.GUIItem;
 
 public class ShowAllServers extends GUIItem {
 	
-	public ShowAllServers() {
+	private String sort;
+	
+	public ShowAllServers(String sort) {
 		super (getIcon());
+		this.sort = sort;
 	}
 	
 	private static ItemStack getIcon() {
@@ -26,7 +29,7 @@ public class ShowAllServers extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		new ServersMenu((Player)e.getWhoClicked(),1, true).delayShow();
+		new ServersMenu((Player)e.getWhoClicked(),1, true,sort).delayShow();
 		return GUIAction.CLOSE;
 	}
 }

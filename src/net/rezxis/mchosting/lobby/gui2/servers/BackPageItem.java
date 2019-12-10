@@ -14,11 +14,13 @@ public class BackPageItem extends GUIItem {
 
 	private int page;
 	private boolean all;
+	private String sort;
 	
-	public BackPageItem(int page, boolean all) {
+	public BackPageItem(int page, boolean all,String sort) {
 		super (getIcon());
 		this.page = page;
 		this.all = all;
+		this.sort = sort;
 	}
 	
 	private static ItemStack getIcon() {
@@ -31,7 +33,7 @@ public class BackPageItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		new ServersMenu((Player)e.getWhoClicked(),page-1,all).delayShow();
+		new ServersMenu((Player)e.getWhoClicked(),page-1,all,sort).delayShow();
 		return GUIAction.CLOSE;
 	}
 }

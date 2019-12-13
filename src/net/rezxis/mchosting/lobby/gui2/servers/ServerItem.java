@@ -12,9 +12,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
-import net.rezxis.mchosting.databse.DBPlayer;
-import net.rezxis.mchosting.databse.DBServer;
-import net.rezxis.mchosting.databse.ServerStatus;
+import net.rezxis.mchosting.database.DBPlayer;
+import net.rezxis.mchosting.database.DBServer;
+import net.rezxis.mchosting.database.ServerStatus;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;

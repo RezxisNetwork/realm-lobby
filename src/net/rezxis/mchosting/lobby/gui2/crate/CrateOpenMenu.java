@@ -1,8 +1,8 @@
 package net.rezxis.mchosting.lobby.gui2.crate;
 
-import net.rezxis.mchosting.databse.DBCrate;
-import net.rezxis.mchosting.databse.DBPlayer;
-import net.rezxis.mchosting.databse.crates.CrateTypes;
+import net.rezxis.mchosting.database.DBCrate;
+import net.rezxis.mchosting.database.DBPlayer;
+import net.rezxis.mchosting.database.crates.CrateTypes;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;

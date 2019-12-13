@@ -16,9 +16,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Database"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Network"/>
 	<classpathentry kind="lib" path="/GamePlugin/spigot.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/GUIv2"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

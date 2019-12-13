@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
 
-import net.rezxis.mchosting.databse.DBPlayer;
-import net.rezxis.mchosting.databse.DBServer;
-import net.rezxis.mchosting.databse.ServerStatus;
+import net.rezxis.mchosting.database.DBPlayer;
+import net.rezxis.mchosting.database.DBServer;
+import net.rezxis.mchosting.database.ServerStatus;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 import net.rezxis.mchosting.lobby.gui2.mine.MyRealmMenu;

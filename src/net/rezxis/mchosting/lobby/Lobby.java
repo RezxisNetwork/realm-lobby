@@ -4,8 +4,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.UUID;
 
-import net.rezxis.mchosting.databse.tables.BackupsTable;
-import net.rezxis.mchosting.databse.tables.CrateTable;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,12 +15,14 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
-import net.rezxis.mchosting.databse.DBPlayer;
-import net.rezxis.mchosting.databse.DBServer;
-import net.rezxis.mchosting.databse.Database;
-import net.rezxis.mchosting.databse.tables.FilesTable;
-import net.rezxis.mchosting.databse.tables.PlayersTable;
-import net.rezxis.mchosting.databse.tables.ServersTable;
+import net.rezxis.mchosting.database.DBPlayer;
+import net.rezxis.mchosting.database.DBServer;
+import net.rezxis.mchosting.database.Database;
+import net.rezxis.mchosting.database.tables.BackupsTable;
+import net.rezxis.mchosting.database.tables.CrateTable;
+import net.rezxis.mchosting.database.tables.FilesTable;
+import net.rezxis.mchosting.database.tables.PlayersTable;
+import net.rezxis.mchosting.database.tables.ServersTable;
 import net.rezxis.mchosting.network.WSClient;
 import net.rezxis.mchosting.network.packet.sync.SyncPlayerSendPacket;
 

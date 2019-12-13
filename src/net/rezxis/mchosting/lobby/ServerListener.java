@@ -1,7 +1,7 @@
 package net.rezxis.mchosting.lobby;
 
-import net.rezxis.mchosting.databse.DBPlayer;
-import net.rezxis.mchosting.databse.DBPlayer.Rank;
+import net.rezxis.mchosting.database.DBPlayer;
+import net.rezxis.mchosting.database.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 
 import org.bukkit.Bukkit;

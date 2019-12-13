@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
-import net.rezxis.mchosting.databse.DBServer;
-import net.rezxis.mchosting.databse.ServerStatus;
+import net.rezxis.mchosting.database.DBServer;
+import net.rezxis.mchosting.database.ServerStatus;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;
 import net.rezxis.mchosting.lobby.Lobby;

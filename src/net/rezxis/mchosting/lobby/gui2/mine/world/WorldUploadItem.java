@@ -38,10 +38,10 @@ public class WorldUploadItem extends GUIItem {
 			lore.add(ChatColor.AQUA+"クリックでアップロード");
 		} else {
 			file.sync();
-			if (!file.getUploaded()) {
+			if (!file.isUploaded()) {
 				lore.add(ChatColor.AQUA+"ワールドをアップロードしてください");
 				lore.add(ChatColor.GREEN+"クリックでアップロードリンクを表示");
-			} else if (file.getUploaded()) {
+			} else if (file.isUploaded()) {
 				lore.add(ChatColor.AQUA+"クリックで適応");
 			}
 		}
@@ -61,7 +61,7 @@ public class WorldUploadItem extends GUIItem {
 			Lobby.instance.fTable.insert(file);
 		} else {
 			file.sync();
-			if (!file.getUploaded()) {
+			if (!file.isUploaded()) {
 				String url = "https://world.rezxis.net/upload.php?uuid="+file.getUUID()+"&secretKey="+file.getSecret();
 				player.sendMessage(ChatColor.YELLOW+"ここからWorld.zipをアップロードしてください。");
 				player.sendMessage(ChatColor.YELLOW+url);

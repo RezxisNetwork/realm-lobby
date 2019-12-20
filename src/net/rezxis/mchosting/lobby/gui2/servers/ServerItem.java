@@ -44,7 +44,7 @@ public class ServerItem extends GUIItem {
 		lore.add(ChatColor.GRAY+"オンラインのプレイヤー "+ChatColor.GREEN+String.valueOf(server.getPlayers())+ChatColor.GRAY+"/"+String.valueOf(dp.getRank().getMaxPlayers()));
 		lore.add(ChatColor.WHITE+"主: "+Bukkit.getOfflinePlayer(server.getOwner()).getName());
 		lore.add(ChatColor.WHITE+"投票: "+ChatColor.AQUA+server.getVote());
-		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.getOfflineBoot()) {
+		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.isOfflineBoot()) {
 			lore.add(ChatColor.LIGHT_PURPLE+"クリックで起動");
 		}
 		im.setLore(lore);
@@ -55,7 +55,7 @@ public class ServerItem extends GUIItem {
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
 		DBPlayer dp = Lobby.instance.pTable.get(server.getOwner());
-		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.getOfflineBoot()) {
+		if (dp.getRank().getOfflineBoot() && server.getStatus() == ServerStatus.STOP && dp.isOfflineBoot()) {
 			Lobby.instance.ws.send(new Gson().toJson(new SyncStartServer(server.getOwner().toString())));
 			e.getWhoClicked().sendMessage(ChatColor.AQUA+"起動中");
 		} else {

@@ -8,8 +8,8 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
-import net.rezxis.mchosting.database.DBPlayer;
-import net.rezxis.mchosting.database.DBServer;
+import net.rezxis.mchosting.database.object.player.DBPlayer;
+import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;
 import net.rezxis.mchosting.lobby.Lobby;

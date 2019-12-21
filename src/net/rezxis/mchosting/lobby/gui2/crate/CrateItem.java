@@ -1,6 +1,6 @@
 package net.rezxis.mchosting.lobby.gui2.crate;
 
-import net.rezxis.mchosting.database.DBCrate;
+import net.rezxis.mchosting.database.object.player.DBCrate;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;

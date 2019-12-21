@@ -15,9 +15,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
-import net.rezxis.mchosting.database.DBPlayer;
-import net.rezxis.mchosting.database.DBServer;
 import net.rezxis.mchosting.database.Database;
+import net.rezxis.mchosting.database.object.player.DBPlayer;
+import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.database.tables.BackupsTable;
 import net.rezxis.mchosting.database.tables.CrateTable;
 import net.rezxis.mchosting.database.tables.FilesTable;

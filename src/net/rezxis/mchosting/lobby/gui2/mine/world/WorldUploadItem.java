@@ -14,8 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
-import net.rezxis.mchosting.database.DBFile;
-import net.rezxis.mchosting.database.DBFile.Type;
+import net.rezxis.mchosting.database.object.internal.DBFile;
+import net.rezxis.mchosting.database.object.internal.DBFile.Type;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;

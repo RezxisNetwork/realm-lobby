@@ -19,11 +19,13 @@ public class ServerNameItem extends GUIItem {
 
 	private String name;
 	private String type;
+	private String stype;
 	
-	public ServerNameItem(String name, String type) {
+	public ServerNameItem(String name, String type, String stype) {
 		super(getIcon(name));
 		this.name = name;
 		this.type = type;
+		this.stype = stype;
 	}
 	
 	private static ItemStack getIcon(String name) {
@@ -66,7 +68,7 @@ public class ServerNameItem extends GUIItem {
 					}
 					Bukkit.getScheduler().scheduleAsyncDelayedTask(Lobby.instance, new Runnable() {
 						public void run() {
-							new CreateServerMenu(pl,text, type).delayShow();
+							new CreateServerMenu(pl,text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)), type, stype).delayShow();
 						}
 					}, 2);
 					return AnvilGUI.Response.close();

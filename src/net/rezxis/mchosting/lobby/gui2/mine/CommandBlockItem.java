@@ -27,7 +27,7 @@ public class CommandBlockItem extends GUIItem {
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(ChatColor.GREEN+"コマンドブロック");
 		ArrayList<String> lore = new ArrayList<>();
-		if (server.getCmd()) {
+		if (server.isCmd()) {
 			lore.add(ChatColor.AQUA+"有効");
 			lore.add(ChatColor.GREEN+"クリックで 無効化");
 		} else {
@@ -41,7 +41,7 @@ public class CommandBlockItem extends GUIItem {
 	
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		server.setCmd(!server.getCmd());
+		server.setCmd(!server.isCmd());
 		server.update();
 		return GUIAction.UPDATE;
 	}

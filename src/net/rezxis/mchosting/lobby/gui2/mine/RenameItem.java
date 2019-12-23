@@ -61,7 +61,7 @@ public class RenameItem extends GUIItem {
 						}
 					}
 					DBServer server = Lobby.instance.sTable.get(pl.getUniqueId());
-					server.setDisplayName(text.replace("&", "§"));
+					server.setDisplayName(text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)));
 					server.update();
 					new MyRealmMenu(pl).delayShow();
 					return AnvilGUI.Response.close();

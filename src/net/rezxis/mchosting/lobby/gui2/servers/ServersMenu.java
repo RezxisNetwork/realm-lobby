@@ -49,7 +49,7 @@ public class ServersMenu extends GUIWindow {
 		for (DBServer server : servers) {
 			server.sync();
 		}
-		int sIndex = 0 + 21*(page-1);//=<20
+		int sIndex = 0 + 21*(page-1);//=<20]
 		int a = 0;
 		if (sort.equalsIgnoreCase("players")) {
 			Collections.sort(servers, new Sort());
@@ -62,6 +62,7 @@ public class ServersMenu extends GUIWindow {
 				if (!dpp.isExpiredRank()) {
 					DBServer sss = Lobby.instance.sTable.get(dpp.getUUID());
 					if (sss != null) {
+						sss.sync();
 						servers.add(sss);
 					}
 				}

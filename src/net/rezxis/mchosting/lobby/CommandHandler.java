@@ -151,7 +151,7 @@ public class CommandHandler {
 									sender.sendMessage(ChatColor.GREEN+"Server Status");
 									sender.sendMessage(ChatColor.GREEN+"status : "+server.getStatus().name());
 									sender.sendMessage(ChatColor.GREEN+"players : "+server.getPlayers());
-									sender.sendMessage(ChatColor.GREEN+"visible : "+server.getVisible());
+									sender.sendMessage(ChatColor.GREEN+"visible : "+server.isVisible());
 								}
 								DBPlayer dp = Lobby.instance.pTable.get(opl.getUniqueId());
 								sender.sendMessage(ChatColor.GREEN+"Player Status");

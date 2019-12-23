@@ -19,11 +19,13 @@ public class DoCreateServerItem extends GUIItem {
 
 	private String name;
 	private String type;
+	private String stype;
 	
-	public DoCreateServerItem(String name, String type) {
+	public DoCreateServerItem(String name, String type, String stype) {
 		super(getIcon());
 		this.name = name;
 		this.type = type;
+		this.stype = stype;
 	}
 	
 	private static ItemStack getIcon() {
@@ -38,7 +40,7 @@ public class DoCreateServerItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		SyncCreateServer packet = new SyncCreateServer(e.getWhoClicked().getUniqueId().toString(), name, type);
+		SyncCreateServer packet = new SyncCreateServer(e.getWhoClicked().getUniqueId().toString(), name, type, stype);
 		Lobby.instance.ws.send(new Gson().toJson(packet));
 		e.getWhoClicked().sendMessage(ChatColor.AQUA+"作成中");
 		return GUIAction.CLOSE;

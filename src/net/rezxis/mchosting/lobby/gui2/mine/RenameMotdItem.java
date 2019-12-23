@@ -46,7 +46,7 @@ public class RenameMotdItem extends GUIItem {
 						return AnvilGUI.Response.text("Motdを入れてください。");
 					}
 					DBServer server = Lobby.instance.sTable.get(pl.getUniqueId());
-					server.setMotd(text.replace("&", "§"));
+					server.setMotd(text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)));
 					server.update();
 					new MyRealmMenu(pl).delayShow();
 					return AnvilGUI.Response.close();

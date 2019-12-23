@@ -27,7 +27,7 @@ public class CreateServerItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		new CreateServerMenu((Player)e.getWhoClicked(),e.getWhoClicked().getName()+"のサーバー", "DEFAULT").delayShow();
+		new CreateServerMenu((Player)e.getWhoClicked(),e.getWhoClicked().getName()+"のサーバー", "DEFAULT", "NORMAL").delayShow();
 		return GUIAction.CLOSE;
 	}
 }

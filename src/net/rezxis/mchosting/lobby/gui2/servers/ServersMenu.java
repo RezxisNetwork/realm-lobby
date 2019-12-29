@@ -39,18 +39,6 @@ public class ServersMenu extends GUIWindow {
 		} else {
 			servers = Lobby.instance.sTable.getOnlineServersVisible();
 		}
-		if (!all)
-			setItem(0, new ShowAllServers(sort), map);
-		if (servers.size() > 21*page)
-			setItem(8,5, new NextPageItem(page,all,sort), map);
-		if (page > 1) {
-			setItem(0,5, new BackPageItem(page,all,sort), map);
-		}
-		for (DBServer server : servers) {
-			server.sync();
-		}
-		int sIndex = 0 + 21*(page-1);//=<20]
-		int a = 0;
 		if (sort.equalsIgnoreCase("players")) {
 			Collections.sort(servers, new Sort());
 		} else {
@@ -68,6 +56,18 @@ public class ServersMenu extends GUIWindow {
 				}
 			}
 		}
+		if (!all)
+			setItem(0, new ShowAllServers(sort), map);
+		if (servers.size() > 21*page)
+			setItem(8,5, new NextPageItem(page,all,sort), map);
+		if (page > 1) {
+			setItem(0,5, new BackPageItem(page,all,sort), map);
+		}
+		for (DBServer server : servers) {
+			server.sync();
+		}
+		int sIndex = 0 + 21*(page-1);//=<20]
+		int a = 0;
 		if (servers.size() == 0) {
 			setItem(4,2, new NoServersItem(), map);
 			return map;

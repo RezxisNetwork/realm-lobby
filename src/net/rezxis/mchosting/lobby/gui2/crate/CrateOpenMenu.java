@@ -43,13 +43,18 @@ public class CrateOpenMenu extends GUIWindow {
             }else if(type == CrateTypes.VOTE) {
                 won = 500;
             }
+            int add = 0;
             while(won > 0) {
                 int amount = r.nextInt(Math.min(won, 266304));
                 amount = Math.max(amount, 4);
                 won -= amount;
                 int slot = r.nextInt(9*6);
                 setItem(slot,addCoins(slot, amount),map);
+                add += amount;
             }
+            DBPlayer player = Lobby.instance.pTable.get(getPlayer().getUniqueId());
+            player.addCoin(add);
+            player.update();
     	}
         return map;
     }
@@ -75,9 +80,6 @@ public class CrateOpenMenu extends GUIWindow {
         GUIItem guiItem = new GUIItem(is) {
             @Override
             public GUIAction invClick(InventoryClickEvent e) {
-                DBPlayer player = Lobby.instance.pTable.get(getPlayer().getUniqueId());
-                player.addCoin(amount);
-                player.update();
                 getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                 int key = -1;
                 for (Entry<Integer,GUIItem> eee: com.map.entrySet()) {

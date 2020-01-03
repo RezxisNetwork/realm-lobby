@@ -50,8 +50,10 @@ public class ServersMenu extends GUIWindow {
 				if (!dpp.isExpiredRank()) {
 					DBServer sss = Lobby.instance.sTable.get(dpp.getUUID());
 					if (sss != null) {
-						sss.sync();
-						servers.add(sss);
+						if (sss.getStatus() != sss.getStatus()) {
+							sss.sync();
+							servers.add(sss);
+						}
 					}
 				}
 			}

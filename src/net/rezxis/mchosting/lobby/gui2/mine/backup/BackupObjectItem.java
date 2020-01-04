@@ -25,7 +25,7 @@ public class BackupObjectItem extends GUIItem {
 		ItemStack is = new ItemStack(Material.ENDER_CHEST);
 		ItemMeta im = is.getItemMeta();
 		ArrayList<String> lore = new ArrayList<>();
-		lore.add(ChatColor.GREEN+"作成日時 : "+obj.getCreation().getMonth()+"月"+obj.getCreation().getDay()+"日");
+		lore.add(ChatColor.GREEN+"作成日時 : "+obj.getCreation().toLocaleString());
 		if (selected) {
 			lore.add(ChatColor.AQUA+"選択されています。");
 		} else {

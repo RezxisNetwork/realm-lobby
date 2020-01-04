@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.google.gson.Gson;
+import com.vexsoftware.votifier.Votifier;
 
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Database;
@@ -74,8 +75,8 @@ public class Lobby extends JavaPlugin {
 					e.printStackTrace();
 				}
 				ws.connect();
-			
 		}).start();
+		Votifier.getInstance().getListeners().add(new RezxisVoteListener());
 	}
 	
 	@Override

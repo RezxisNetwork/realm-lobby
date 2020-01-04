@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
+import net.rezxis.mchosting.database.object.server.ServerStatus;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;
 import net.rezxis.mchosting.lobby.Lobby;
@@ -39,6 +40,9 @@ public class ServersMenu extends GUIWindow {
 		} else {
 			servers = Lobby.instance.sTable.getOnlineServersVisible();
 		}
+		for (DBServer server : servers) {
+			server.sync();
+		}
 		if (sort.equalsIgnoreCase("players")) {
 			Collections.sort(servers, new Sort());
 		} else {
@@ -50,7 +54,7 @@ public class ServersMenu extends GUIWindow {
 				if (!dpp.isExpiredRank()) {
 					DBServer sss = Lobby.instance.sTable.get(dpp.getUUID());
 					if (sss != null) {
-						if (sss.getStatus() != sss.getStatus()) {
+						if (sss.getStatus() != ServerStatus.RUNNING) {
 							sss.sync();
 							servers.add(sss);
 						}

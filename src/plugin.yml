@@ -1,6 +1,7 @@
 name: RezxisMCHosting
 main: net.rezxis.mchosting.lobby.Lobby
 version: 0.2
+softdepend: [Votifier]
 commands:
   menu:
     description: Show RezxisRealms menu

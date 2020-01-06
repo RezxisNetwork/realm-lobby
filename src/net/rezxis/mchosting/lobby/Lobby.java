@@ -45,7 +45,7 @@ public class Lobby extends JavaPlugin {
 		instance = this;
 		props = new Props("hosting.propertis");
 		//connect DB and get servers which online from DB
-		Database.init();
+		Database.init(props.DB_HOST,props.DB_USER,props.DB_PASS,props.DB_PORT,props.DB_NAME);
 		sTable = new ServersTable();
 		pTable = new PlayersTable();
 		fTable = new FilesTable();

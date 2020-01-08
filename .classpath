@@ -18,5 +18,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/realm-gameplugin/spigot.jar"/>
 	<classpathentry kind="lib" path="votifier-1.9.jar"/>
+	<classpathentry kind="lib" path="GadgetsMenu.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -4,6 +4,10 @@ import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 
+import java.util.HashMap;
+import java.util.Random;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -20,10 +24,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import com.yapzhenyie.GadgetsMenu.api.GadgetsMenuAPI;
+import com.yapzhenyie.GadgetsMenu.player.PlayerManager;
 
 import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 
@@ -70,12 +78,36 @@ public class ServerListener implements Listener {
 				team.setPrefix(rank.getPrefix());
 			}
 		}
+		PermissionAttachment attachment = event.getPlayer().addAttachment(Lobby.instance);
+		PlayerManager gadPlayer = GadgetsMenuAPI.getPlayerManager(event.getPlayer());
+		if (player.getVault() > 0) {
+			gadPlayer.giveMysteryBoxes(System.currentTimeMillis()+(24 * 3600 * 1000), true, null, player.getVault());
+			player.setVault(0);
+			player.update();
+		}
+		Lobby.instance.perms.put(event.getPlayer().getUniqueId(), attachment);
+		attachment.setPermission("gadgetsmenu.animations.*", true);
+		attachment.setPermission("gadgetsmenu.mysteryboxes.open.1", true);
+		attachment.setPermission("gadgetsmenu.mysteryboxes.open.2", true);
+		attachment.setPermission("gadgetsmenu.mysteryboxes.open.3", true);
+		if (player.isSupporter()) {
+			attachment.setPermission("gadgetsmenu.mysteryboxes.open.4", true);
+			attachment.setPermission("gadgetsmenu.mysteryboxes.open.5", true);
+			attachment.setPermission("gadgetsmenu.multipleboxes.*", true);
+		} else {
+			attachment.setPermission("gadgetsmenu.mysteryboxes.open.4", false);
+			attachment.setPermission("gadgetsmenu.mysteryboxes.open.5", false);
+			attachment.setPermission("gadgetsmenu.multipleboxes.*", false);
+		}
+		attachment.setPermission("gadgetsmenu.menuselector", true);
+		gadPlayer.giveMenuSelector();
+		
 		for (Player pp : Bukkit.getOnlinePlayers()) {
 			DBPlayer dp = Lobby.instance.pTable.get(pp.getUniqueId());
 			Team team = board.getTeam(dp.getRank().name());
 			team.addEntry(pp.getName());
 		}
-		
+		GadgetsMenuAPI.getPlayerManager(event.getPlayer()).giveMenuSelector();
 		Objective obj = board.registerNewObjective("info", "dummy");
 		updateBoard(obj, player);
 		event.getPlayer().setScoreboard(board);
@@ -89,8 +121,12 @@ public class ServerListener implements Listener {
 			player = Lobby.instance.pTable.get(event.getPlayer().getUniqueId());
 			Lobby.instance.players.put(event.getPlayer().getUniqueId(), player);
 		}
+		if (player.isSupporter() && !player.getPrefix().isEmpty()) {
+			event.setFormat(player.getPrefix()+" "+event.getPlayer().getName()+ChatColor.WHITE+" : "+event.getMessage());
+			return;
+		}
 		if (player.getRank() != Rank.NORMAL) {
-			event.setFormat(player.getRank().getPrefix()+" "+event.getPlayer().getName()+ChatColor.WHITE+" : "+event.getMessage());
+			event.setFormat(player.getRank().getPrefix()+" "+ChatColor.RESET+event.getPlayer().getName()+ChatColor.WHITE+" : "+event.getMessage());
 		}
 	}
 	

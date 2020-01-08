@@ -21,3 +21,7 @@ commands:
     description: Manage all servers
   vote:
     description: Vote to child server.
+  prefix:
+    description: A command to change prefix
+  fly:
+    description: A commant to allow fly

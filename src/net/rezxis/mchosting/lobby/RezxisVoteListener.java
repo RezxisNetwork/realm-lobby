@@ -26,7 +26,7 @@ public class RezxisVoteListener implements VoteListener {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(vote.getUsername());
 		if (Lobby.instance.pTable.get(player.getUniqueId()) == null)
-			Lobby.instance.pTable.insert(new DBPlayer(-1, player.getUniqueId(), Rank.NORMAL, 0, false, new Date(), new Date(), false, false ,"",false));
+			Lobby.instance.pTable.insert(new DBPlayer(-1, player.getUniqueId(), Rank.NORMAL, 0, false, new Date(), new Date(), false, false ,"",false,false,new Date(),"",0));
 		DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
 		dp.addCoin(1000);
 		dp.update();

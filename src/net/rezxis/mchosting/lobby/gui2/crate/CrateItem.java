@@ -29,7 +29,7 @@ public class CrateItem extends GUIItem {
 
     @Override
     public GUIAction invClick(InventoryClickEvent e) {
-        Lobby.instance.cTable.removeCrate(crate);
+        crate.remove();
         new CrateOpenMenu(crate, (Player) e.getWhoClicked()).delayShow();
         return GUIAction.CLOSE;
     }

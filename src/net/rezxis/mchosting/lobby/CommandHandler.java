@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.print.attribute.standard.PDLOverrideSupported;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -38,7 +40,7 @@ public class CommandHandler {
 			new MyRealmMenu((Player) sender).delayShow();
 		} else if (name.equalsIgnoreCase("crate")) {
 			new CrateMenu((Player) sender).delayShow();
-		}else if (name.equalsIgnoreCase("connect")) {
+		} else if (name.equalsIgnoreCase("connect")) {
 			DBServer server = Lobby.instance.sTable.get(((Player)sender).getUniqueId());
 			if (server == null) {
 				sender.sendMessage(ChatColor.RED+"あなたはサーバーを持っていません。");
@@ -196,6 +198,41 @@ public class CommandHandler {
 						}
 					}
 				}
+			}
+		} else if (name.equalsIgnoreCase("prefix")) {
+			Player player = (Player)sender;
+			DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
+			if (!dp.isSupporter()) {
+				player.sendMessage(ChatColor.RED+"Prefixはサポーターで解禁されます。");
+				return true;
+			}
+			if (args.length != 0) {
+				String prefix = "";
+				for (String split : args) {
+					prefix += split;
+				}
+				prefix = prefix.replaceAll("&", "§");
+				dp.setPrefix(prefix);
+				dp.update();
+				player.sendMessage(ChatColor.GREEN+"Prefixは"+prefix+" に変更されました。");
+			} else {
+				dp.setPrefix("");
+				dp.update();
+				player.sendMessage(ChatColor.GREEN+"Prefixを初期化しました。設定は /prefix <prefix> です。");
+			}
+		} else if (name.equalsIgnoreCase("fly")) {
+			Player player = (Player) sender;
+			DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
+			if (dp.isSupporter()) {
+				if (player.getAllowFlight()) {
+					player.setAllowFlight(false);
+					player.sendMessage(ChatColor.GREEN+"flyを無効化しました。");
+				} else {
+					player.setAllowFlight(true);
+					player.sendMessage(ChatColor.GREEN+"flyを有効化しました。");
+				}
+			} else {
+				player.sendMessage(ChatColor.RED+"この機能はサポーターで使えます。");
 			}
 		}
 		return true;

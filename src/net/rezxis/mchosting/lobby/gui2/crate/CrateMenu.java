@@ -26,6 +26,7 @@ public class CrateMenu extends GUIWindow {
     @Override
     public HashMap<Integer, GUIItem> getOptions() {
         HashMap<Integer, GUIItem> map = new HashMap<>();
+        setItem(8, 4, new OpenAllItem(), map);
         if(crates.size() == 0) {
             ItemStack is = new ItemStack(Material.BARRIER);
             ItemMeta im = is.getItemMeta();
@@ -41,6 +42,10 @@ public class CrateMenu extends GUIWindow {
         }
         int i = 0;
         for(DBCrate crate : crates) {
+        	if (i == 31) {
+        		setItem(8, 4, new OpenAllItem(), map);
+        		return map;
+        	}
             setItem(i, new CrateItem(crate), map);
             i++;
         }

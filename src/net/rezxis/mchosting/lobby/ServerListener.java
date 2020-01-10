@@ -1,5 +1,6 @@
 package net.rezxis.mchosting.lobby;
 
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
@@ -60,7 +61,7 @@ public class ServerListener implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
 		event.getPlayer().getInventory().setItem(4, menu);
-		DBPlayer player = Lobby.instance.pTable.get(event.getPlayer().getUniqueId());
+		DBPlayer player = Tables.getPTable().get(event.getPlayer().getUniqueId());
 		if (player.isExpiredRank()) {
 			player.setRank(Rank.NORMAL);
 			player.setOfflineBoot(false);
@@ -81,7 +82,7 @@ public class ServerListener implements Listener {
 		PermissionAttachment attachment = event.getPlayer().addAttachment(Lobby.instance);
 		PlayerManager gadPlayer = GadgetsMenuAPI.getPlayerManager(event.getPlayer());
 		if (player.getVault() > 0) {
-			gadPlayer.giveMysteryBoxes(System.currentTimeMillis()+(24 * 3600 * 1000), true, null, player.getVault());
+			gadPlayer.giveMysteryBoxes(System.currentTimeMillis()+(24 * 3600 * 1000 * 7), true, null, player.getVault());
 			player.setVault(0);
 			player.update();
 		}
@@ -103,7 +104,7 @@ public class ServerListener implements Listener {
 		gadPlayer.giveMenuSelector();
 		
 		for (Player pp : Bukkit.getOnlinePlayers()) {
-			DBPlayer dp = Lobby.instance.pTable.get(pp.getUniqueId());
+			DBPlayer dp = Tables.getPTable().get(pp.getUniqueId());
 			Team team = board.getTeam(dp.getRank().name());
 			team.addEntry(pp.getName());
 		}
@@ -118,7 +119,7 @@ public class ServerListener implements Listener {
 	public void onChat(AsyncPlayerChatEvent event) {
 		DBPlayer player = Lobby.instance.players.get(event.getPlayer().getUniqueId());
 		if (player == null) {
-			player = Lobby.instance.pTable.get(event.getPlayer().getUniqueId());
+			player = Tables.getPTable().get(event.getPlayer().getUniqueId());
 			Lobby.instance.players.put(event.getPlayer().getUniqueId(), player);
 		}
 		if (player.isSupporter() && !player.getPrefix().isEmpty()) {

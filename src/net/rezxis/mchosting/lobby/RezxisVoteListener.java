@@ -12,6 +12,7 @@ import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VoteListener;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.crates.CrateTypes;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
@@ -25,12 +26,12 @@ public class RezxisVoteListener implements VoteListener {
 	public void voteMade(Vote vote) {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(vote.getUsername());
-		if (Lobby.instance.pTable.get(player.getUniqueId()) == null)
-			Lobby.instance.pTable.insert(new DBPlayer(-1, player.getUniqueId(), Rank.NORMAL, 0, false, new Date(), new Date(), false, false ,"",false,false,new Date(),"",0));
-		DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
+		if (Tables.getPTable().get(player.getUniqueId()) == null)
+			Tables.getPTable().insert(new DBPlayer(-1, player.getUniqueId(), Rank.NORMAL, 0, false, new Date(), new Date(), false, false ,"",false,false,new Date(),"",0));
+		DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
 		dp.addCoin(1000);
 		dp.update();
-		Lobby.instance.cTable.giveCrate(player.getUniqueId(), CrateTypes.VOTE);
+		Tables.getCTable().giveCrate(player.getUniqueId(), CrateTypes.VOTE);
 		Votifier.getInstance().getLogger().log(Level.INFO, vote.getUsername()+" has voted!");
 		if (player.isOnline()) {
 			Player p = Bukkit.getPlayer(vote.getUsername());

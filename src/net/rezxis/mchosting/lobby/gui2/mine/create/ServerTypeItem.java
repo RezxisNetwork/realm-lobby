@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.gui.GUIAction;
@@ -54,7 +55,7 @@ public class ServerTypeItem extends GUIItem {
 		} else if (stype.equalsIgnoreCase("CUSTOM")) {
 			stype = "NORMAL";
 		}
-		DBPlayer player = Lobby.instance.pTable.get(e.getWhoClicked().getUniqueId());
+		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 		if (player.getRank() != Rank.DEVELOPER) {
 			stype = "NORMAL";
 			e.getWhoClicked().sendMessage(ChatColor.RED+"この機能は現在調整中です。");

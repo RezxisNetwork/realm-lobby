@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.internal.DBFile;
 import net.rezxis.mchosting.database.object.internal.DBFile.Type;
 import net.rezxis.mchosting.gui.GUIAction;
@@ -33,7 +34,7 @@ public class WorldUploadItem extends GUIItem {
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(ChatColor.LIGHT_PURPLE+"ワールドをアップロード");
 		ArrayList<String> lore = new ArrayList<>();
-		DBFile file = Lobby.instance.fTable.get2(player.getUniqueId().toString(), Type.WORLD);
+		DBFile file = Tables.getFTable().get2(player.getUniqueId().toString(), Type.WORLD);
 		if (file == null) {
 			lore.add(ChatColor.AQUA+"クリックでアップロード");
 		} else {
@@ -53,12 +54,12 @@ public class WorldUploadItem extends GUIItem {
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
 		Player player = (Player) e.getWhoClicked();
-		DBFile file = Lobby.instance.fTable.get2(player.getUniqueId().toString(), Type.WORLD);
+		DBFile file = Tables.getFTable().get2(player.getUniqueId().toString(), Type.WORLD);
 		if (file == null) {
 			file = new DBFile("", player.getUniqueId().toString(),
 					RandomStringUtils.randomAlphabetic(10),
 					false, new Date(), Type.WORLD);
-			Lobby.instance.fTable.insert(file);
+			Tables.getFTable().insert(file);
 		} else {
 			file.sync();
 			if (!file.isUploaded()) {

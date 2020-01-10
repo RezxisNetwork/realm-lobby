@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.internal.DBBackup;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.gui.GUIAction;
@@ -35,8 +36,8 @@ public class CreateBackupItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		ArrayList<DBBackup> list = Lobby.instance.bTable.getBackups(e.getWhoClicked().getUniqueId().toString());
-		DBPlayer player = Lobby.instance.pTable.get(e.getWhoClicked().getUniqueId());
+		ArrayList<DBBackup> list = Tables.getBTable().getBackups(e.getWhoClicked().getUniqueId().toString());
+		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 		if (list.size() >= player.getRank().getMaxBackups()) {
 			e.getWhoClicked().sendMessage(ChatColor.RED+"あなたのランクで作成できるバックアップ数は"+player.getRank().getMaxBackups());
 			return GUIAction.NO_ACTION;

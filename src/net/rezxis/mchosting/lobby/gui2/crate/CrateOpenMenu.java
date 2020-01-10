@@ -1,5 +1,6 @@
 package net.rezxis.mchosting.lobby.gui2.crate;
 
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.crates.CrateTypes;
 import net.rezxis.mchosting.database.object.player.DBCrate;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
@@ -52,7 +53,7 @@ public class CrateOpenMenu extends GUIWindow {
                 setItem(slot,addCoins(slot, amount),map);
                 add += amount;
             }
-            DBPlayer player = Lobby.instance.pTable.get(getPlayer().getUniqueId());
+            DBPlayer player = Tables.getPTable().get(getPlayer().getUniqueId());
             player.addCoin(add);
             player.update();
     	}

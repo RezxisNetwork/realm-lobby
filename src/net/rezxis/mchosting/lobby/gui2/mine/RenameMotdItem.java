@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
@@ -45,7 +46,7 @@ public class RenameMotdItem extends GUIItem {
 					if (text == null) {
 						return AnvilGUI.Response.text("Motdを入れてください。");
 					}
-					DBServer server = Lobby.instance.sTable.get(pl.getUniqueId());
+					DBServer server = Tables.getSTable().get(pl.getUniqueId());
 					server.setMotd(text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)));
 					server.update();
 					new MyRealmMenu(pl).delayShow();

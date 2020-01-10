@@ -18,6 +18,8 @@ import com.vexsoftware.votifier.Votifier;
 
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Database;
+import net.rezxis.mchosting.database.Tables;
+import net.rezxis.mchosting.database.object.ServerWrapper;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.database.tables.BackupsTable;
@@ -25,6 +27,7 @@ import net.rezxis.mchosting.database.tables.CrateTable;
 import net.rezxis.mchosting.database.tables.FilesTable;
 import net.rezxis.mchosting.database.tables.PlayersTable;
 import net.rezxis.mchosting.database.tables.ServersTable;
+import net.rezxis.mchosting.database.tables.ThirdPartyTable;
 import net.rezxis.mchosting.network.WSClient;
 import net.rezxis.mchosting.network.packet.sync.SyncPlayerSendPacket;
 
@@ -32,11 +35,6 @@ public class Lobby extends JavaPlugin {
 
 	public static Lobby instance;
 	public WSClient ws;
-	public ServersTable sTable;
-	public PlayersTable pTable;
-	public FilesTable fTable;
-	public CrateTable cTable;
-	public BackupsTable bTable;
 	public Props props;
 	public HashMap<UUID,DBPlayer> players = new HashMap<>();
 	public HashMap<UUID,Scoreboard> boards = new HashMap<>();
@@ -48,11 +46,6 @@ public class Lobby extends JavaPlugin {
 		props = new Props("hosting.propertis");
 		//connect DB and get servers which online from DB
 		Database.init(props.DB_HOST,props.DB_USER,props.DB_PASS,props.DB_PORT,props.DB_NAME);
-		sTable = new ServersTable();
-		pTable = new PlayersTable();
-		fTable = new FilesTable();
-		cTable = new CrateTable();
-		bTable = new BackupsTable();
 		Bukkit.getPluginManager().registerEvents(new ServerListener(),this);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
 			public void run() {
@@ -86,6 +79,12 @@ public class Lobby extends JavaPlugin {
 		return CommandHandler.onCommand(sender, cmd, commandLabel, args);
 	}
 	
+	public void connect(Player player, ServerWrapper dest) {
+		player.sendMessage(ChatColor.AQUA+"接続中");
+		SyncPlayerSendPacket sPacket = new SyncPlayerSendPacket(player.getUniqueId().toString(),dest.getDisplayName());
+		ws.send(new Gson().toJson(sPacket));
+	}
+	
 	public void connect(Player player, DBServer dest) {
 		player.sendMessage(ChatColor.AQUA+"接続中");
 		SyncPlayerSendPacket sPacket = new SyncPlayerSendPacket(player.getUniqueId().toString(),dest.getDisplayName());
@@ -94,7 +93,7 @@ public class Lobby extends JavaPlugin {
 	
 	public void connect(Player player) {
 		player.sendMessage(ChatColor.AQUA+"接続中");
-		DBServer server = sTable.get(player.getUniqueId());
+		DBServer server = Tables.getSTable().get(player.getUniqueId());
 		SyncPlayerSendPacket sPacket = new SyncPlayerSendPacket(player.getUniqueId().toString(),server.getDisplayName());
 		ws.send(new Gson().toJson(sPacket));
 	}

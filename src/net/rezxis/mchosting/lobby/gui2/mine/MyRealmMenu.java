@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.database.object.server.ServerStatus;
 import net.rezxis.mchosting.database.object.server.DBServer.GameType;
@@ -19,7 +20,7 @@ public class MyRealmMenu extends GUIWindow {
 	@Override
 	public HashMap<Integer, GUIItem> getOptions() {
 		HashMap<Integer, GUIItem> map = new HashMap<>();
-		DBServer server = Lobby.instance.sTable.get(this.getPlayer().getUniqueId());
+		DBServer server = Tables.getSTable().get(this.getPlayer().getUniqueId());
 		if (server == null) {
 			setItem(4, new CreateServerItem(), map);
 		} else {

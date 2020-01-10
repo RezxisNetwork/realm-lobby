@@ -24,4 +24,6 @@ commands:
   prefix:
     description: A command to change prefix
   fly:
-    description: A commant to allow fly
+    description: A command to allow fly
+  thirdparty:
+    description: A command to manage thirdparty

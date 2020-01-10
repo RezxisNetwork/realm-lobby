@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.Gson;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.database.object.server.ShopItem;
@@ -37,12 +38,12 @@ public class DeleteServerItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		DBServer server = Lobby.instance.sTable.get(e.getWhoClicked().getUniqueId());
+		DBServer server = Tables.getSTable().get(e.getWhoClicked().getUniqueId());
 		int coin = 0;
 		for (ShopItem item : server.getShop().getItems()) {
 			coin += item.getEarned();
 		}
-		DBPlayer player = Lobby.instance.pTable.get(e.getWhoClicked().getUniqueId());
+		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 		player.addCoin(coin);
 		player.update();
 		SyncDeleteServer packet = new SyncDeleteServer(e.getWhoClicked().getUniqueId().toString());

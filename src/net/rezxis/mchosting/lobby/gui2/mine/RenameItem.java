@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
@@ -47,7 +48,7 @@ public class RenameItem extends GUIItem {
 						return AnvilGUI.Response.text("サーバー名を入れてください。");
 					}
 					String[] denied = new String[] {"/","\\","."};
-					if (Lobby.instance.sTable.getServerByName(text) != null) {
+					if (Tables.getSTable().getServerByName(text) != null) {
 						pl.sendMessage(ChatColor.RED+"その名前は既に使われています。");
 						return AnvilGUI.Response.close();
 					} else if (text.equalsIgnoreCase("lobby")) {
@@ -60,7 +61,7 @@ public class RenameItem extends GUIItem {
 							return AnvilGUI.Response.close();
 						}
 					}
-					DBServer server = Lobby.instance.sTable.get(pl.getUniqueId());
+					DBServer server = Tables.getSTable().get(pl.getUniqueId());
 					server.setDisplayName(text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)));
 					server.update();
 					new MyRealmMenu(pl).delayShow();

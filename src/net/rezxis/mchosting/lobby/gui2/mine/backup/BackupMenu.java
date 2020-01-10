@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.internal.DBBackup;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.gui.GUIWindow;
@@ -30,7 +31,7 @@ public class BackupMenu extends GUIWindow {
 		setItem(0,5,new CreateBackupItem(),items);
 		int num = 0;
 		DBBackup selected = null;
-		for (DBBackup obj : Lobby.instance.bTable.getBackups(player.getUniqueId().toString())) {
+		for (DBBackup obj : Tables.getBTable().getBackups(player.getUniqueId().toString())) {
 			setItem(num,0,new BackupObjectItem(obj, num == select),items);
 			if (num == select) {
 				selected = obj;

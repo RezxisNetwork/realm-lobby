@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.print.attribute.standard.PDLOverrideSupported;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -15,8 +16,10 @@ import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
 
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
+import net.rezxis.mchosting.database.object.server.DBThirdParty;
 import net.rezxis.mchosting.database.object.server.ServerStatus;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
@@ -41,7 +44,7 @@ public class CommandHandler {
 		} else if (name.equalsIgnoreCase("crate")) {
 			new CrateMenu((Player) sender).delayShow();
 		} else if (name.equalsIgnoreCase("connect")) {
-			DBServer server = Lobby.instance.sTable.get(((Player)sender).getUniqueId());
+			DBServer server = Tables.getSTable().get(((Player)sender).getUniqueId());
 			if (server == null) {
 				sender.sendMessage(ChatColor.RED+"あなたはサーバーを持っていません。");
 				return true;
@@ -53,7 +56,7 @@ public class CommandHandler {
 			Lobby.instance.connect((Player)sender);
 		} else if (name.equalsIgnoreCase("stopall")) {
 			if (sender.isOp()) {
-				ArrayList<DBServer> online = Lobby.instance.sTable.getOnlineServers();
+				ArrayList<DBServer> online = Tables.getSTable().getOnlineServers();
 				for (DBServer s : online) {
 					SyncStopServer packet = new SyncStopServer(s.getOwner().toString());
 					Lobby.instance.ws.send(gson.toJson(packet));
@@ -74,7 +77,7 @@ public class CommandHandler {
 							if (opl == null) {
 								sender.sendMessage(ChatColor.RED+"There is no player which name is "+args[1]);
 							} else {
-								DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+								DBServer server = Tables.getSTable().get(opl.getUniqueId());
 								if (server == null) {
 									sender.sendMessage(ChatColor.RED+"There is no server which owner is "+args[1]);
 								} else {
@@ -92,7 +95,7 @@ public class CommandHandler {
 							if (opl == null) {
 								sender.sendMessage(ChatColor.RED+"There is no player which name is "+args[1]);
 							} else {
-								DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+								DBServer server = Tables.getSTable().get(opl.getUniqueId());
 								if (server == null) {
 									sender.sendMessage(ChatColor.RED+"There is no server which owner is "+args[1]);
 								} else {
@@ -109,7 +112,7 @@ public class CommandHandler {
 							if (opl == null) {
 								sender.sendMessage(ChatColor.RED+"There is no player which name is "+args[1]);
 							} else {
-								DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+								DBServer server = Tables.getSTable().get(opl.getUniqueId());
 								if (server == null) {
 									sender.sendMessage(ChatColor.RED+"There is no server which owner is "+args[1]);
 								} else {
@@ -126,7 +129,7 @@ public class CommandHandler {
 							if (opl == null) {
 								sender.sendMessage(ChatColor.RED+"There is no player which name is "+args[1]);
 							} else {
-								DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+								DBServer server = Tables.getSTable().get(opl.getUniqueId());
 								if (server == null) {
 									sender.sendMessage(ChatColor.RED+"There is no server which owner is "+args[1]);
 								} else {
@@ -146,7 +149,7 @@ public class CommandHandler {
 							if (opl == null) {
 								sender.sendMessage(ChatColor.RED+"There is no player which name is "+args[1]);
 							} else {
-								DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+								DBServer server = Tables.getSTable().get(opl.getUniqueId());
 								if (server == null) {
 									sender.sendMessage(ChatColor.RED+"There is no server which owner is "+args[1]);
 								} else {
@@ -155,7 +158,7 @@ public class CommandHandler {
 									sender.sendMessage(ChatColor.GREEN+"players : "+server.getPlayers());
 									sender.sendMessage(ChatColor.GREEN+"visible : "+server.isVisible());
 								}
-								DBPlayer dp = Lobby.instance.pTable.get(opl.getUniqueId());
+								DBPlayer dp = Tables.getPTable().get(opl.getUniqueId());
 								sender.sendMessage(ChatColor.GREEN+"Player Status");
 								sender.sendMessage(ChatColor.GREEN+"Rank : "+dp.getRank().name());
 								sender.sendMessage(ChatColor.GREEN+"Coins : "+dp.getCoin());
@@ -177,12 +180,12 @@ public class CommandHandler {
 					sender.sendMessage(ChatColor.RED+args[0]+"は存在しません。");
 					return true;
 				} else {
-					DBPlayer self = Lobby.instance.pTable.get(((Player)sender).getUniqueId());
+					DBPlayer self = Tables.getPTable().get(((Player)sender).getUniqueId());
 					if (self.getNextVote().after(new Date())) {
 						sender.sendMessage(ChatColor.RED+"投票は一日一回のみです。");
 						return true;
 					} else {
-						DBServer server = Lobby.instance.sTable.get(opl.getUniqueId());
+						DBServer server = Tables.getSTable().get(opl.getUniqueId());
 						if (server == null) {
 							sender.sendMessage(ChatColor.RED+args[0]+"はサーバーを持ってません。");
 							return true;
@@ -201,7 +204,7 @@ public class CommandHandler {
 			}
 		} else if (name.equalsIgnoreCase("prefix")) {
 			Player player = (Player)sender;
-			DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
+			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
 			if (!dp.isSupporter()) {
 				player.sendMessage(ChatColor.RED+"Prefixはサポーターで解禁されます。");
 				return true;
@@ -212,7 +215,7 @@ public class CommandHandler {
 					prefix += split;
 				}
 				prefix = prefix.replaceAll("&", "§");
-				dp.setPrefix(prefix);
+				dp.setPrefix(prefix+ChatColor.RESET);
 				dp.update();
 				player.sendMessage(ChatColor.GREEN+"Prefixは"+prefix+" に変更されました。");
 			} else {
@@ -222,7 +225,7 @@ public class CommandHandler {
 			}
 		} else if (name.equalsIgnoreCase("fly")) {
 			Player player = (Player) sender;
-			DBPlayer dp = Lobby.instance.pTable.get(player.getUniqueId());
+			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
 			if (dp.isSupporter()) {
 				if (player.getAllowFlight()) {
 					player.setAllowFlight(false);
@@ -234,8 +237,72 @@ public class CommandHandler {
 			} else {
 				player.sendMessage(ChatColor.RED+"この機能はサポーターで使えます。");
 			}
+		} else if (name.equalsIgnoreCase("thirdparty")) {
+			Player player = (Player) sender;
+			if (args.length == 0) {
+				thirdHelp(player);
+			} else {
+				if (args[0].equalsIgnoreCase("status")) {
+					DBThirdParty dtp = Tables.getTTable().getByUUID(player.getUniqueId());
+					if (dtp == null) {
+						player.sendMessage(ChatColor.RED+"登録されていません。");
+						return true;
+					}
+					player.sendMessage(ChatColor.RED+"Key : "+dtp.getKey());
+					player.sendMessage(ChatColor.RED+"online : "+dtp.isOnline());
+					player.sendMessage(ChatColor.RED+"locked : "+dtp.isLocked());
+					player.sendMessage(ChatColor.RED+"Host : "+dtp.getHost());
+					player.sendMessage(ChatColor.RED+"Port : "+dtp.getPort());
+					player.sendMessage(ChatColor.RED+"players : "+dtp.getPlayers());
+					player.sendMessage(ChatColor.RED+"max : "+dtp.getMax());
+					player.sendMessage(ChatColor.RED+"name : "+dtp.getName());
+					player.sendMessage(ChatColor.RED+"motd : "+dtp.getMotd());
+					player.sendMessage(ChatColor.RED+"icon : "+dtp.getIcon());
+					player.sendMessage(ChatColor.RED+"vote : "+dtp.getScore());
+					player.sendMessage(ChatColor.RED+"Expire in "+dtp.getExpire().toLocaleString());
+					player.sendMessage(ChatColor.RED+"=========END OF THIRDPARTY STATUS=========");
+				} else if (args[0].equalsIgnoreCase("renew")) {
+					DBThirdParty dtp = Tables.getTTable().getByUUID(player.getUniqueId());
+					if (dtp == null) {
+						player.sendMessage(ChatColor.RED+"登録されていません。");
+						return true;
+					}
+					if (!dtp.isOnline()) {
+						player.sendMessage(ChatColor.RED+"あなたのサーバーはオンラインです。");
+						return true;
+					}
+					dtp.setKey(RandomStringUtils.randomAlphabetic(10));
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(new Date());
+					calendar.add(Calendar.WEEK_OF_MONTH, 1);
+					dtp.setExpire(calendar.getTime());
+					dtp.update();
+					player.sendMessage(ChatColor.RED+"更新されました。");
+				} else if (args[0].equalsIgnoreCase("register")) {
+					DBThirdParty dtp = Tables.getTTable().getByUUID(player.getUniqueId());
+					if (dtp != null) {
+						player.sendMessage(ChatColor.RED+"すでに登録されています。");
+						return true;
+					}
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(new Date());
+					calendar.add(Calendar.WEEK_OF_MONTH, 1);
+					dtp = new DBThirdParty(-1,RandomStringUtils.randomAlphabetic(10),
+							player.getUniqueId(),false,false,calendar.getTime(),
+							"",-1,0,0,"","",true,0,"EMERALD_BLOCK");
+					Tables.getTTable().insert(dtp);
+					player.sendMessage(ChatColor.RED+"登録されました。 有効期限は一ヶ月です。");
+				}
+			}
 		}
 		return true;
+	}
+	
+	private static void thirdHelp(Player player) {
+		player.sendMessage(ChatColor.GREEN+"============================");
+		player.sendMessage(ChatColor.RED+"/thirdparty status : Show your thirdparty status");
+		player.sendMessage(ChatColor.RED+"/thirdparty renew : Renew your thirdparty key");
+		player.sendMessage(ChatColor.GREEN+"============================");
 	}
 	
 	private static void printHelp(CommandSender sender) {

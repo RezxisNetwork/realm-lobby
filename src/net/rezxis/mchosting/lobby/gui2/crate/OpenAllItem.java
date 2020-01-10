@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.crates.CrateTypes;
 import net.rezxis.mchosting.database.object.player.DBCrate;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
@@ -35,13 +36,13 @@ public class OpenAllItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		DBPlayer player = Lobby.instance.pTable.get(e.getWhoClicked().getUniqueId());
+		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 		if (!player.getRank().getCrateAllOpen()) {
 			Lobby.instance.getServer().getPlayer(e.getWhoClicked().getUniqueId()).sendMessage(ChatColor.RED+"一斉開封はDIAMOND以上で使用可能になります。");
 			return GUIAction.CLOSE;
 		}
 		int add = 0;
-		for (DBCrate crt : Lobby.instance.cTable.getCrates(e.getWhoClicked().getUniqueId(), -1)) {
+		for (DBCrate crt : Tables.getCTable().getCrates(e.getWhoClicked().getUniqueId(), -1)) {
             Random r = new Random();
             CrateTypes type = crt.getType();
             if(type == CrateTypes.NORMAL) {

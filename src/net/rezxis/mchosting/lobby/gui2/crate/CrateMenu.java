@@ -1,5 +1,6 @@
 package net.rezxis.mchosting.lobby.gui2.crate;
 
+import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBCrate;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
@@ -20,7 +21,7 @@ public class CrateMenu extends GUIWindow {
 
     public CrateMenu(Player player) {
         super(player, "Crates", 5, Lobby.instance);
-        crates = Lobby.instance.cTable.getCrates(player.getUniqueId(),45);
+        crates = Tables.getCTable().getCrates(player.getUniqueId(),45);
     }
 
     @Override

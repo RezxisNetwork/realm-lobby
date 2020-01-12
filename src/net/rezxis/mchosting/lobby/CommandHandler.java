@@ -171,37 +171,6 @@ public class CommandHandler {
 			} else {
 				sender.sendMessage(ChatColor.RED+"The Command is not allowed to use");
 			}
-		} else if (name.equalsIgnoreCase("vote")) {
-			if (args.length != 1) {
-				sender.sendMessage(ChatColor.RED+"投票方法: /vote <投票対象サーバーのオーナー名>");
-			} else {
-				OfflinePlayer opl = Bukkit.getOfflinePlayer(args[0]);
-				if (opl == null) {
-					sender.sendMessage(ChatColor.RED+args[0]+"は存在しません。");
-					return true;
-				} else {
-					DBPlayer self = Tables.getPTable().get(((Player)sender).getUniqueId());
-					if (self.getNextVote().after(new Date())) {
-						sender.sendMessage(ChatColor.RED+"投票は一日一回のみです。");
-						return true;
-					} else {
-						DBServer server = Tables.getSTable().get(opl.getUniqueId());
-						if (server == null) {
-							sender.sendMessage(ChatColor.RED+args[0]+"はサーバーを持ってません。");
-							return true;
-						} else {
-							server.addVote(1);
-							server.update();
-							Calendar calendar = Calendar.getInstance();
-							calendar.setTime(new Date());
-							calendar.add(Calendar.DAY_OF_WEEK, 1);
-							self.setNextVote(calendar.getTime());
-							self.update();
-							sender.sendMessage(server.getDisplayName()+ChatColor.GREEN+"に投票しました。");
-						}
-					}
-				}
-			}
 		} else if (name.equalsIgnoreCase("prefix")) {
 			Player player = (Player)sender;
 			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
@@ -267,7 +236,7 @@ public class CommandHandler {
 						player.sendMessage(ChatColor.RED+"登録されていません。");
 						return true;
 					}
-					if (!dtp.isOnline()) {
+					if (dtp.isOnline()) {
 						player.sendMessage(ChatColor.RED+"あなたのサーバーはオンラインです。");
 						return true;
 					}
@@ -291,7 +260,7 @@ public class CommandHandler {
 							player.getUniqueId(),false,false,calendar.getTime(),
 							"",-1,0,0,"","",true,0,"EMERALD_BLOCK");
 					Tables.getTTable().insert(dtp);
-					player.sendMessage(ChatColor.RED+"登録されました。 有効期限は一ヶ月です。");
+					player.sendMessage(ChatColor.RED+"登録されました。 有効期限は一週間です。");
 				}
 			}
 		}

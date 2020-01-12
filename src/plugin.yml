@@ -19,8 +19,6 @@ commands:
     description: Show RezxisRealms menu
   manager:
     description: Manage all servers
-  vote:
-    description: Vote to child server.
   prefix:
     description: A command to change prefix
   fly:

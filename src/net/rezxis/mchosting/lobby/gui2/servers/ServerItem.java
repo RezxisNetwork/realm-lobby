@@ -15,7 +15,6 @@ import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.ServerWrapper;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
-import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.database.object.server.ServerStatus;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
@@ -33,8 +32,12 @@ public class ServerItem extends GUIItem {
 	
 	private static ItemStack getIcon(ServerWrapper server) {
 		DBPlayer dp = Tables.getPTable().get(server.getOwner());
-		ItemStack is = new ItemStack(Material.valueOf(server.getIcon()));
-		if (server.getPlayers() != 0)
+		ItemStack is = new ItemStack(Material.BARRIER);
+		try {
+			Material m = Material.valueOf(server.getIcon());
+			is = new ItemStack(m);
+		} catch (Exception ex) {}
+		if (server.getPlayers() > 0)
 			is.setAmount(server.getPlayers());
 		else 
 			is.setAmount(1);
@@ -64,9 +67,8 @@ public class ServerItem extends GUIItem {
 				Lobby.instance.ws.send(new Gson().toJson(new SyncStartServer(server.getOwner().toString())));
 				e.getWhoClicked().sendMessage(ChatColor.AQUA+"起動中");
 			}
-		} else {
-			Lobby.instance.connect((Player) e.getWhoClicked(),server);
 		}
+		Lobby.instance.connect((Player) e.getWhoClicked(),server);
 		return GUIAction.CLOSE;
 	}
 }

@@ -21,6 +21,7 @@ public class BackupObjectItem extends GUIItem {
 		super(getIcon(obj, selected));
 	}
 	
+	@SuppressWarnings("deprecation")
 	private static ItemStack getIcon(DBBackup obj, boolean selected) {
 		ItemStack is = new ItemStack(Material.ENDER_CHEST);
 		ItemMeta im = is.getItemMeta();

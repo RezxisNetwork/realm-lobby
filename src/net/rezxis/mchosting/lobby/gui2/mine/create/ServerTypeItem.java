@@ -14,7 +14,6 @@ import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
-import net.rezxis.mchosting.lobby.Lobby;
 
 public class ServerTypeItem extends GUIItem {
 

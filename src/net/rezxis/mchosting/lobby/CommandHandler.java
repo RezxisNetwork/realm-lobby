@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.print.attribute.standard.PDLOverrideSupported;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,6 +31,7 @@ public class CommandHandler {
 
 	private static Gson gson = new Gson();
 	
+	@SuppressWarnings("deprecation")
 	public static boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		String name = cmd.getName();
 		if (name.equalsIgnoreCase("menu") || name.equalsIgnoreCase("realm")) {

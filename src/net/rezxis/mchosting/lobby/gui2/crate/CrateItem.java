@@ -3,7 +3,6 @@ package net.rezxis.mchosting.lobby.gui2.crate;
 import net.rezxis.mchosting.database.object.player.DBCrate;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
-import net.rezxis.mchosting.lobby.Lobby;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

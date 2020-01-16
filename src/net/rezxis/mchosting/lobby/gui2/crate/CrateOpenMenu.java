@@ -22,13 +22,11 @@ import java.util.Random;
 
 public class CrateOpenMenu extends GUIWindow {
     private DBCrate crate;
-    private CrateTypes type;
     private HashMap<Integer, GUIItem> map;
 
     public CrateOpenMenu(DBCrate crate, Player player) {
         super(player, crate.getType().getName(), 6, Lobby.instance);
         this.crate = crate;
-        type = crate.getType();
     }
 
     @Override
@@ -37,11 +35,11 @@ public class CrateOpenMenu extends GUIWindow {
     		map = new HashMap<>();
             int won = 0;
             Random r = new Random();
-            if(type == CrateTypes.NORMAL) {
+            if(crate.getType() == CrateTypes.NORMAL) {
                 won = 35 + r.nextInt(51);
-            }else if(type == CrateTypes.RARE) {
+            }else if(crate.getType() == CrateTypes.RARE) {
                 won = 65 + r.nextInt(75);
-            }else if(type == CrateTypes.VOTE) {
+            }else if(crate.getType() == CrateTypes.VOTE) {
                 won = 500;
             }
             int add = 0;

@@ -22,12 +22,6 @@ import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.ServerWrapper;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
-import net.rezxis.mchosting.database.tables.BackupsTable;
-import net.rezxis.mchosting.database.tables.CrateTable;
-import net.rezxis.mchosting.database.tables.FilesTable;
-import net.rezxis.mchosting.database.tables.PlayersTable;
-import net.rezxis.mchosting.database.tables.ServersTable;
-import net.rezxis.mchosting.database.tables.ThirdPartyTable;
 import net.rezxis.mchosting.network.WSClient;
 import net.rezxis.mchosting.network.packet.sync.SyncPlayerSendPacket;
 

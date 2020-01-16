@@ -5,10 +5,6 @@ import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -149,9 +145,7 @@ public class ServerListener implements Listener {
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
-		if (event.getWhoClicked().getGameMode() != GameMode.CREATIVE) {
-			event.setCancelled(true);
-		}
+		
 	}
 	
 	public static Objective updateBoard(Objective obj, DBPlayer player) {

@@ -3,7 +3,6 @@ package net.rezxis.mchosting.lobby.gui2.mine;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

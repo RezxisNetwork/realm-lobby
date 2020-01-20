@@ -22,7 +22,7 @@ public class DeleteConfirmMenu extends GUIWindow {
 	public HashMap<Integer, GUIItem> getOptions() {
 		HashMap<Integer, GUIItem> items = new HashMap<Integer, GUIItem>();
 		int z = new Random().nextInt(53);
-		for (int i = 0; i < 53; i++) {
+		for (int i = 0; i < 54; i++) {
 			if (i == z) {
 				items.put(i, new ConfirmItem(phase));
 			} else {

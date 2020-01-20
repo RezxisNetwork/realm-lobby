@@ -75,24 +75,21 @@
 	</dependency>
 	<dependency>
     	<artifactId>spigot</artifactId>
-    	<groupId>spigot</groupId>
+    	<groupId>rezxis</groupId>
     	<version>0</version>
-    	<scope>system</scope>
-    	<systemPath>${basedir}/../realm-gameplugin/spigot.jar</systemPath>
+    	<scope>provided</scope>
 	</dependency>
 	<dependency>
     	<artifactId>GadgetsMenu</artifactId>
-    	<groupId>GadgetsMenu</groupId>
+    	<groupId>rezxis</groupId>
     	<version>0</version>
-    	<scope>system</scope>
-    	<systemPath>${basedir}/GadgetsMenu.jar</systemPath>
+    	<scope>provided</scope>
 	</dependency>
 	<dependency>
     	<artifactId>Votifier</artifactId>
-    	<groupId>Votifier</groupId>
+    	<groupId>rezxis</groupId>
     	<version>0</version>
-    	<scope>system</scope>
-    	<systemPath>${basedir}/votifier-1.9.jar</systemPath>
+    	<scope>provided</scope>
 	</dependency>
   </dependencies>
 </project>

@@ -70,7 +70,7 @@ public class WSClientHandler implements ClientHandler {
 					player.sendMessage(ChatColor.AQUA+"サーバーが作成されました。起動してください！");
 		}
 	}
-
+	
 	@Override
 	public void onClose(int code, String reason, boolean remote) {
 		System.out.println("closed / code : "+code+" / reason : "+reason+" / remote : "+remote);
@@ -78,8 +78,6 @@ public class WSClientHandler implements ClientHandler {
 
 	@Override
 	public void onMessage(ByteBuffer buffer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

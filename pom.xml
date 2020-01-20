@@ -73,5 +73,26 @@
     	<artifactId>commons-codec</artifactId>
     	<version>1.13</version>
 	</dependency>
+	<dependency>
+    	<artifactId>spigot</artifactId>
+    	<groupId>spigot</groupId>
+    	<version>0</version>
+    	<scope>system</scope>
+    	<systemPath>${basedir}/../realm-gameplugin/spigot.jar</systemPath>
+	</dependency>
+	<dependency>
+    	<artifactId>GadgetsMenu</artifactId>
+    	<groupId>GadgetsMenu</groupId>
+    	<version>0</version>
+    	<scope>system</scope>
+    	<systemPath>${basedir}/GadgetsMenu.jar</systemPath>
+	</dependency>
+	<dependency>
+    	<artifactId>Votifier</artifactId>
+    	<groupId>Votifier</groupId>
+    	<version>0</version>
+    	<scope>system</scope>
+    	<systemPath>${basedir}/votifier-1.9.jar</systemPath>
+	</dependency>
   </dependencies>
 </project>

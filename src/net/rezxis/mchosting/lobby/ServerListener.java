@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -45,6 +46,13 @@ public class ServerListener implements Listener {
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent event) {
 		event.getPlayer().getInventory().setItem(4, menu);
+	}
+	
+	@EventHandler
+	public void onMove(PlayerMoveEvent event) {
+		if (event.getTo().getY() < 0) {
+			event.getPlayer().teleport(event.getPlayer().getLocation().getWorld().getSpawnLocation());
+		}
 	}
 	
 	@EventHandler

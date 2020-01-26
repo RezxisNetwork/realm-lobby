@@ -282,10 +282,4 @@ public class CommandHandler {
 		sender.sendMessage(ChatColor.RED+"/manager restart <MCID> : send restart signal to server");
 		sender.sendMessage(ChatColor.GREEN+"===========================================");
 	}
-	/*
-	 *   stop
-    start
-    restart
-    help
-	 */
 }

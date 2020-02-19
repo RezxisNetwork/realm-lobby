@@ -63,7 +63,7 @@ public class WorldUploadItem extends GUIItem {
 		} else {
 			file.sync();
 			if (!file.isUploaded()) {
-				String url = "https://world.rezxis.net/upload.php?uuid="+file.getUUID()+"&secretKey="+file.getSecret();
+				String url = String.format("http://world.rezxis.net/?uuid=%s&secretKey=%s", file.getUUID(), file.getSecret());
 				player.sendMessage(ChatColor.YELLOW+"ここからWorld.zipをアップロードしてください。");
 				player.sendMessage(ChatColor.YELLOW+url);
 			} else {

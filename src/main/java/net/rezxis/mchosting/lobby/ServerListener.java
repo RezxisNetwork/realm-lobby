@@ -3,7 +3,11 @@ package net.rezxis.mchosting.lobby;
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
+import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -22,6 +27,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -35,6 +41,7 @@ import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 public class ServerListener implements Listener {
 
 	public static ItemStack menu;
+	private HashMap<UUID,Long> statsCT = new HashMap<>();
 	
 	public ServerListener() {
 		menu = new ItemStack(Material.NETHER_STAR);
@@ -58,6 +65,33 @@ public class ServerListener implements Listener {
 	@EventHandler
 	public void onLeft(PlayerQuitEvent event) {
 		event.setQuitMessage(null);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	public void onInteract(PlayerInteractEntityEvent event) {
+		if (event.getRightClicked() instanceof Player) {
+			Player target = (Player)event.getRightClicked();
+			if (statsCT.containsKey(event.getPlayer().getUniqueId())) {
+				long time = statsCT.get(event.getPlayer().getUniqueId());
+				if (System.currentTimeMillis() - time < 3000) {
+					event.getPlayer().sendMessage(ChatColor.RED+"クールダウン : "+(time/1000)+"秒");
+					return;
+				}
+			}
+			statsCT.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
+			Bukkit.getScheduler().runTaskAsynchronously(Lobby.instance, new BukkitRunnable() {
+				@Override
+				public void run() {
+					DBServer server = Tables.getSTable().get(target.getUniqueId());
+					if (server == null) {
+						event.getPlayer().sendMessage(ChatColor.RED+target.getName()+"はプレイヤーはサーバーを持っていません。");
+					} else {
+						event.getPlayer().sendMessage(ChatColor.AQUA+"サーバー名 : "+ChatColor.RESET+target.getDisplayName());
+					}
+				}});
+			
+		}
 	}
 	
 	@EventHandler

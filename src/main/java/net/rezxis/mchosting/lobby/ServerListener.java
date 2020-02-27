@@ -67,9 +67,8 @@ public class ServerListener implements Listener {
 		event.setQuitMessage(null);
 	}
 	
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onInteract(PlayerInteractEntityEvent event) {
+	@EventHandler(ignoreCancelled = true)
+	public void onInteractEntity(PlayerInteractEntityEvent event) {
 		if (event.getRightClicked() instanceof Player) {
 			Player target = (Player)event.getRightClicked();
 			if (statsCT.containsKey(event.getPlayer().getUniqueId())) {

@@ -53,7 +53,7 @@ public class ServerItem extends GUIItem {
 			maxp = server.getDBThirdParty().getMax();
 		}
 		lore.add(ChatColor.GRAY+"オンラインのプレイヤー "+ChatColor.GREEN+String.valueOf(server.getPlayers())+ChatColor.GRAY+"/"+maxp);
-		lore.add(ChatColor.WHITE+"主: "+Bukkit.getOfflinePlayer(server.getOwner()).getName());
+		lore.add(ChatColor.WHITE+"主: "+dp.getRank().getPrefix()+" "+ChatColor.RESET+Bukkit.getOfflinePlayer(server.getOwner()).getName());
 		lore.add(ChatColor.WHITE+"投票: "+ChatColor.AQUA+server.getVote());
 		if (server.isDBServer()) {
 			if (dp.getRank().getOfflineBoot() && server.getDBServer().getStatus() == ServerStatus.STOP && dp.isOfflineBoot()) {

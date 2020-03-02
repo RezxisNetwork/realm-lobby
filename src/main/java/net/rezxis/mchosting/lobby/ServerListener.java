@@ -74,7 +74,7 @@ public class ServerListener implements Listener {
 			if (statsCT.containsKey(event.getPlayer().getUniqueId())) {
 				long time = statsCT.get(event.getPlayer().getUniqueId());
 				if (System.currentTimeMillis() - time < 3000) {
-					event.getPlayer().sendMessage(ChatColor.RED+"クールダウン : "+(time/1000)+"秒");
+					event.getPlayer().sendMessage(ChatColor.RED+"クールダウン : "+((System.currentTimeMillis()-time)/1000)+"秒");
 					return;
 				}
 			}
@@ -86,7 +86,7 @@ public class ServerListener implements Listener {
 					if (server == null) {
 						event.getPlayer().sendMessage(ChatColor.RED+target.getName()+"はプレイヤーはサーバーを持っていません。");
 					} else {
-						event.getPlayer().sendMessage(ChatColor.AQUA+"サーバー名 : "+ChatColor.RESET+target.getDisplayName());
+						event.getPlayer().sendMessage(ChatColor.AQUA+"サーバー名 : "+ChatColor.RESET+server.getDisplayName());
 					}
 				}});
 			

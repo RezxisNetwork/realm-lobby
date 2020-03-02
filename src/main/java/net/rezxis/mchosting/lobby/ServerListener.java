@@ -159,7 +159,7 @@ public class ServerListener implements Listener {
 			Lobby.instance.players.put(event.getPlayer().getUniqueId(), player);
 		}
 		if (player.isSupporter() && !player.getPrefix().isEmpty()) {
-			event.setFormat(player.getPrefix()+" "+event.getPlayer().getName()+ChatColor.WHITE+" : "+event.getMessage());
+			event.setFormat(player.getPrefix()+" "+event.getPlayer().getName()+ChatColor.GREEN+" : "+ChatColor.WHITE+event.getMessage());
 			return;
 		}
 		if (player.getRank() != Rank.NORMAL) {
@@ -184,9 +184,7 @@ public class ServerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onClick(InventoryClickEvent event) {
-		
-	}
+	public void onClick(InventoryClickEvent event) {}
 	
 	public static Objective updateBoard(Objective obj, DBPlayer player) {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);

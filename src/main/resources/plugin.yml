@@ -25,3 +25,5 @@ commands:
     description: A command to allow fly
   thirdparty:
     description: A command to manage thirdparty
+  rankinfo:
+    description: A command to check your rank

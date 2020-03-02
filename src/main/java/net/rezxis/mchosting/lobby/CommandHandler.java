@@ -261,6 +261,17 @@ public class CommandHandler {
 					Tables.getTTable().insert(dtp);
 					player.sendMessage(ChatColor.RED+"登録されました。 有効期限は一週間です。");
 				}
+			} 
+		} else if (name.equalsIgnoreCase("rankinfo")) {
+			Player player = (Player) sender;
+			DBPlayer dplayer = Tables.getPTable().get(player.getUniqueId());
+			player.sendMessage(ChatColor.GREEN+"Rank : "+dplayer.getRank().name());
+			player.sendMessage(ChatColor.GREEN+"Rank有効期限 : "+dplayer.getRankExpire().toLocaleString());
+			if (dplayer.isSupporter()) {
+				player.sendMessage(ChatColor.GREEN+"あなたは、サポーターランクです。rezxisをサポートありがとう <3");
+				player.sendMessage(ChatColor.GREEN+"有効期限 : "+dplayer.getSupporterExpire().toLocaleString());
+			} else {
+				player.sendMessage(ChatColor.GREEN+"あなたは、サポーターランクではありません。");
 			}
 		}
 		return true;

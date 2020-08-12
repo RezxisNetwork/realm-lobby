@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.PermissionAttachment;
@@ -65,6 +66,12 @@ public class ServerListener implements Listener {
 	@EventHandler
 	public void onLeft(PlayerQuitEvent event) {
 		event.setQuitMessage(null);
+	}
+	
+	@EventHandler
+	public void onPing(ServerListPingEvent e) {
+		e.setMotd(ChatColor.AQUA+""+ChatColor.BOLD+"                     ----====REZXIS NETWORK====----"+"\n"+
+		ChatColor.LIGHT_PURPLE+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"                             --==REALM==--");
 	}
 	
 	@EventHandler(ignoreCancelled = true)

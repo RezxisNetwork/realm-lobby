@@ -56,14 +56,14 @@ public class WorldUploadItem extends GUIItem {
 		Player player = (Player) e.getWhoClicked();
 		DBFile file = Tables.getFTable().get2(player.getUniqueId().toString(), Type.WORLD);
 		if (file == null) {
-			file = new DBFile("", player.getUniqueId().toString(),
+			file = new DBFile(player.getUniqueId().toString(),
 					RandomStringUtils.randomAlphabetic(10),
 					false, new Date(), Type.WORLD);
 			Tables.getFTable().insert(file);
 		} else {
 			file.sync();
 			if (!file.isUploaded()) {
-				String url = String.format("http://world.rezxis.net/?uuid=%s&secretKey=%s", file.getUUID(), file.getSecret());
+				String url = String.format("http://world.rezxis.net/?uuid=%s&secret=%s", file.getUUID(), file.getSecret());
 				player.sendMessage(ChatColor.YELLOW+"ここからWorld.zipをアップロードしてください。");
 				player.sendMessage(ChatColor.YELLOW+url);
 			} else {

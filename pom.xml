@@ -21,6 +21,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -96,17 +97,15 @@
 	</dependency>
 	<dependency>
 		<artifactId>GadgetsMenu</artifactId>
-		<groupId>com.yapzhenyie</groupId>
-		<version>4.3.29</version>
-		<scope>system</scope>
-		<systemPath>${basedir}/lib/GadgetsMenu.jar</systemPath>
+		<groupId>GadgetsMenu</groupId>
+		<version>1</version>
+		<scope>provided</scope>
 	</dependency>
 	<dependency>
-		<artifactId>votifer</artifactId>
-		<groupId>com.vexsoftware</groupId>
-		<version>1.9</version>
-		<scope>system</scope>
-		<systemPath>${basedir}/lib/Votifier.jar</systemPath>
+		<artifactId>Votifier</artifactId>
+		<groupId>Votifier</groupId>
+		<version>1</version>
+		<scope>provided</scope>
 	</dependency>
   </dependencies>
 </project>

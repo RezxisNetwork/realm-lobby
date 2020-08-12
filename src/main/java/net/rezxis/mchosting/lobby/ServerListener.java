@@ -70,8 +70,7 @@ public class ServerListener implements Listener {
 	
 	@EventHandler
 	public void onPing(ServerListPingEvent e) {
-		e.setMotd(ChatColor.AQUA+""+ChatColor.BOLD+"        ---==REZXIS NETWORK==---\n"
-				+ChatColor.LIGHT_PURPLE+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"            ---==REALM==---");
+		e.setMotd(ChatColor.AQUA+""+ChatColor.BOLD+"        ---==REZXIS NETWORK==---");
 		/*e.setMotd(ChatColor.AQUA+""+ChatColor.BOLD+"                     ----====REZXIS NETWORK====----"+"\n"+
 		ChatColor.LIGHT_PURPLE+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"                             --==REALM==--");*/
 	}

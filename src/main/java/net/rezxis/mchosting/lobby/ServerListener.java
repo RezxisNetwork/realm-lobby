@@ -157,6 +157,7 @@ public class ServerListener implements Listener {
 		updateBoard(obj, player);
 		event.getPlayer().setScoreboard(board);
 		Lobby.instance.boards.put(event.getPlayer().getUniqueId(), board);
+		event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 	}
 	
 	@EventHandler

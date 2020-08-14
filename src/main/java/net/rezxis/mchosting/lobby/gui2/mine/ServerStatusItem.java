@@ -75,6 +75,13 @@ public class ServerStatusItem extends GUIItem {
 			Lobby.instance.ws.send(new Gson().toJson(packet));
 			e.getWhoClicked().sendMessage(ChatColor.RED+"停止中。");
 		} else if (server.getStatus() == ServerStatus.STOP) {
+			String[] blacklisted = new String[] {"ae80e828","b9dbc293","652c8d52","91bcd6c0","lobby"};
+			for (String s : blacklisted) {
+				if (server.getDisplayName().contains(s)) {
+					e.getWhoClicked().sendMessage(ChatColor.RED + "そのサーバー名は既に予約されているため使用できません。");
+					return GUIAction.CLOSE;
+				}
+			}
 			//start
 			SyncStartServer packet = new SyncStartServer(e.getWhoClicked().getUniqueId().toString());
 			Lobby.instance.ws.send(new Gson().toJson(packet));

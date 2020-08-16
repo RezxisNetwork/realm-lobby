@@ -80,6 +80,7 @@ public class VoteBonus {
 			} else if (e.getKey() == Action.RANK) {
 				Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
 				c.add(1, Calendar.DAY_OF_WEEK);
+				System.out.println(c.getTime().toLocaleString());
 				dv.setRank(c.getTime());
 			}
 		}

@@ -55,7 +55,7 @@ public class RezxisVoteListener implements VoteListener {
 		dv.setLastVote(Calendar.getInstance(TimeZone.getTimeZone("Japan"), Locale.JAPANESE).getTime());
 		if (player.isOnline()) {
 			Player p = Bukkit.getPlayer(player.getUniqueId());
-			p.sendMessage(ChatColor.AQUA+""+ChatColor.BOLD+"投票ありがとう互いざいます。");
+			p.sendMessage(ChatColor.AQUA+""+ChatColor.BOLD+"投票ありがとうございます。");
 			p.sendMessage(ChatColor.AQUA+""+ChatColor.BOLD+"投票報酬を獲得しました。詳細は/voteinfo で確認できます。");
 		}
 		if (!exists) {

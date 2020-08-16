@@ -31,7 +31,7 @@ public class VoteBonusInfoItem extends GUIItem {
 			damage = 14;
 			name = ChatColor.RED+"";
 		} else {
-			if ((dv.getTotal() % 7) -1 <= kind) {
+			if ((dv.getTotal() % 7) -1 >= kind) {
 				damage = 5;
 				name = ChatColor.GREEN+"";
 			} else {

@@ -42,12 +42,19 @@ public class OpenAllItem extends GUIItem {
 		for (DBCrate crt : Tables.getCTable().getCrates(e.getWhoClicked().getUniqueId(), -1)) {
             Random r = new Random();
             CrateTypes type = crt.getType();
+            int won = 0;
             if(type == CrateTypes.NORMAL) {
-                add += 35 + r.nextInt(51);
+                won += 35 + r.nextInt(51);
             }else if(type == CrateTypes.RARE) {
-            	add += 65 + r.nextInt(75);
+            	won += 65 + r.nextInt(75);
             }else if(type == CrateTypes.VOTE) {
-            	add += 500;
+            	won += 500;
+            }
+            while(won > 0) {
+                int amount = r.nextInt(Math.min(won, 266304));
+                amount = Math.max(amount, 4);
+                won -= amount;
+                add += amount;
             }
             crt.remove();
 		}

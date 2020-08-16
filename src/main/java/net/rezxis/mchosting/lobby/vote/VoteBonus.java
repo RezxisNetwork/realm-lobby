@@ -35,10 +35,10 @@ public class VoteBonus {
 		a0.put(Action.VOTEBOX, 1);
 		v0 = new VoteBonus(0, a0);
 		HashMap<Action,Integer> a1 = new HashMap<>();
-		a1.put(Action.VOTEBOX, 2);
+		a1.put(Action.VOTEBOX, 1);
 		v1 = new VoteBonus(0, a1);
 		HashMap<Action,Integer> a2 = new HashMap<>();
-		a2.put(Action.VOTEBOX, 2);
+		a2.put(Action.VOTEBOX, 1);
 		v2 = new VoteBonus(0, a2);
 		
 		HashMap<Action,Integer> a3 = new HashMap<>();

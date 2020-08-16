@@ -1,18 +1,15 @@
 package net.rezxis.mchosting.lobby.vote;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import com.yapzhenyie.GadgetsMenu.api.GadgetsMenuAPI;
 import com.yapzhenyie.GadgetsMenu.player.OfflinePlayerManager;
-import com.yapzhenyie.GadgetsMenu.player.PlayerManager;
 
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.crates.CrateTypes;

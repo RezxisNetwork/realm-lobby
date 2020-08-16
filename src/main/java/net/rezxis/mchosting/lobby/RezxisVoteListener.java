@@ -4,21 +4,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import com.vexsoftware.votifier.Votifier;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VoteListener;
 
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Tables;
-import net.rezxis.mchosting.database.crates.CrateTypes;
-import net.rezxis.mchosting.database.object.player.DBPlayer;
-import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
 import net.rezxis.mchosting.lobby.vote.VoteBonus;
 import net.rezxis.mchosting.database.object.player.DBVote;
 
@@ -40,6 +35,7 @@ public class RezxisVoteListener implements VoteListener {
 			c.setTime(new Date());
 			c.add(Calendar.DAY_OF_WEEK, -2);
 			dv = new DBVote(-1,player.getUniqueId(),0,0,new Date(), c.getTime());
+			exists = false;
 		}
 		//add
 		int type = dv.getTotal() % 7;

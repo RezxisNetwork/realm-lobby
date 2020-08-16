@@ -79,7 +79,7 @@ public class VoteBonus {
 				gadPlayer.giveMysteryBoxes(System.currentTimeMillis()+(24 * 3600 * 1000 * 7), false, null, e.getValue(), 100, 0, 0, 0, 0, 100);
 			} else if (e.getKey() == Action.RANK) {
 				Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
-				c.add(1, Calendar.DAY_OF_WEEK);
+				c.add(Calendar.DAY_OF_WEEK, 1);
 				System.out.println(c.getTime().toLocaleString());
 				dv.setRank(c.getTime());
 			}

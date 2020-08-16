@@ -38,7 +38,7 @@ public class RezxisVoteListener implements VoteListener {
 		if (dv == null) {
 			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
 			c.setTime(new Date());
-			c.add(Calendar.DAY_OF_MONTH, -2);
+			c.add(Calendar.DAY_OF_WEEK, -2);
 			dv = new DBVote(-1,player.getUniqueId(),0,0,new Date(), c.getTime());
 		}
 		//add

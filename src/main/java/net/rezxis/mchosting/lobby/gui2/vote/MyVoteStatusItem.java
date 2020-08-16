@@ -39,7 +39,7 @@ public class MyVoteStatusItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		TextComponent tc = new TextComponent(ChatColor.GREEN+"投票はこちらからできます。");
+		TextComponent tc = new TextComponent(ChatColor.AQUA+""+ChatColor.BOLD+"投票はこちらからできます。 Click here");
 		tc.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://minecraft.jp/servers/play.rezxis.net/vote"));
 		player.spigot().sendMessage(tc);
 		return GUIAction.NO_ACTION;

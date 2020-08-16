@@ -44,6 +44,15 @@ public class RezxisVoteListener implements VoteListener {
 		//add
 		int type = dv.getTotal() % 7;
 		VoteBonus.give(player, dv, type);
+		dv.setTotal(dv.getTotal()+1);
+		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Japan"), Locale.JAPANESE);
+		c.add(Calendar.DAY_OF_WEEK, -1);
+		if (dv.getLastVote().after(c.getTime())) {
+			dv.setStreak(dv.getStreak()+1);
+		} else {
+			dv.setStreak(1);
+		}
+		dv.setLastVote(Calendar.getInstance(TimeZone.getTimeZone("Japan"), Locale.JAPANESE).getTime());
 		if (player.isOnline()) {
 			Player p = Bukkit.getPlayer(player.getUniqueId());
 			p.sendMessage(ChatColor.GREEN+"投票ありがとう互いざいます。");

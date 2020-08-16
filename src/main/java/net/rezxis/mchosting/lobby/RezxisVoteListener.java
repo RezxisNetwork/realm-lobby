@@ -1,6 +1,9 @@
 package net.rezxis.mchosting.lobby;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -16,13 +19,46 @@ import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.crates.CrateTypes;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
+import net.rezxis.mchosting.lobby.vote.VoteBonus;
+import net.rezxis.mchosting.database.object.player.DBVote;
 
 public class RezxisVoteListener implements VoteListener {
 	
+	public static RezxisVoteListener i;
+	
 	public RezxisVoteListener() {
+		i = this;
 	}
 	
 	@Override
+	public void voteMade(Vote vote) {
+		OfflinePlayer player = Bukkit.getOfflinePlayer(vote.getUsername());
+		DBVote dv = Tables.getVTable().getVoteByUUID(player.getUniqueId());
+		boolean exists = true;
+		if (dv == null) {
+			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
+			c.setTime(new Date());
+			c.add(Calendar.DAY_OF_MONTH, -2);
+			dv = new DBVote(-1,player.getUniqueId(),0,0,new Date(), c.getTime());
+		}
+		//add
+		int type = dv.getTotal() % 7;
+		VoteBonus.give(player, dv, type);
+		if (player.isOnline()) {
+			Player p = Bukkit.getPlayer(player.getUniqueId());
+			p.sendMessage(ChatColor.GREEN+"投票ありがとう互いざいます。");
+			p.sendMessage(ChatColor.GREEN+"投票報酬を獲得しました。詳細は/voteinfo");
+		}
+		if (!exists) {
+			Tables.getVTable().insert(dv);
+		} else {
+			dv.update();
+		}
+	}
+	
+	
+	
+	/*@Override
 	public void voteMade(Vote vote) {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(vote.getUsername());
@@ -37,5 +73,5 @@ public class RezxisVoteListener implements VoteListener {
 			Player p = Bukkit.getPlayer(vote.getUsername());
 			p.sendMessage(ChatColor.AQUA+"投票ありがとうございました。報酬として1000RealmCoinと報酬箱を受け取りました。");
 		}
-	}
+	}*/
 }

@@ -29,7 +29,7 @@ public class OpenAllItem extends GUIItem {
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(ChatColor.GREEN+"一斉開封");
 		ArrayList<String> lore = new ArrayList<>();
-		lore.add(ChatColor.RED+"DIAMOND rank以上で使用可能です。");
+		lore.add(ChatColor.GREEN+"全ランクで使用可能になりました。");
 		im.setLore(lore);
 		is.setItemMeta(im);
 		return is;
@@ -38,10 +38,6 @@ public class OpenAllItem extends GUIItem {
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
 		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
-		if (!player.getRank().getCrateAllOpen()) {
-			Lobby.instance.getServer().getPlayer(e.getWhoClicked().getUniqueId()).sendMessage(ChatColor.RED+"一斉開封はDIAMOND以上で使用可能になります。");
-			return GUIAction.CLOSE;
-		}
 		int add = 0;
 		for (DBCrate crt : Tables.getCTable().getCrates(e.getWhoClicked().getUniqueId(), -1)) {
             Random r = new Random();

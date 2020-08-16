@@ -27,3 +27,7 @@ commands:
     description: A command to manage thirdparty
   rankinfo:
     description: A command to check your rank
+  voteinfo:
+    description: A commant to check you vote status
+  makevote:
+    description: debug

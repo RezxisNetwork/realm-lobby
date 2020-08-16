@@ -3,6 +3,8 @@ package net.rezxis.mchosting.lobby;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
@@ -13,6 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
+import com.vexsoftware.votifier.model.Vote;
 
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
@@ -23,6 +26,7 @@ import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 import net.rezxis.mchosting.lobby.gui2.main.MainMenu;
 import net.rezxis.mchosting.lobby.gui2.mine.MyRealmMenu;
 import net.rezxis.mchosting.lobby.gui2.servers.ServersMenu;
+import net.rezxis.mchosting.lobby.gui2.vote.VoteStatusMenu;
 import net.rezxis.mchosting.network.packet.sync.SyncRebootServer;
 import net.rezxis.mchosting.network.packet.sync.SyncStartServer;
 import net.rezxis.mchosting.network.packet.sync.SyncStopServer;
@@ -240,8 +244,7 @@ public class CommandHandler {
 						return true;
 					}
 					dtp.setKey(RandomStringUtils.randomAlphabetic(10));
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(new Date());
+					Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
 					calendar.add(Calendar.WEEK_OF_MONTH, 1);
 					dtp.setExpire(calendar.getTime());
 					dtp.update();
@@ -252,8 +255,7 @@ public class CommandHandler {
 						player.sendMessage(ChatColor.RED+"すでに登録されています。");
 						return true;
 					}
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(new Date());
+					Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Japan"),Locale.JAPANESE);
 					calendar.add(Calendar.WEEK_OF_MONTH, 1);
 					dtp = new DBThirdParty(-1,RandomStringUtils.randomAlphabetic(10),
 							player.getUniqueId(),false,false,calendar.getTime(),
@@ -273,6 +275,15 @@ public class CommandHandler {
 			} else {
 				player.sendMessage(ChatColor.GREEN+"あなたは、サポーターランクではありません。");
 			}
+		} else if (name.equalsIgnoreCase("voteinfo")) {
+			new VoteStatusMenu((Player)sender).delayShow();
+		} else if (name.equalsIgnoreCase("makevote")) {
+			Vote vote = new Vote();
+			vote.setUsername("1yq");
+			vote.setAddress("127.0.0.1");
+			vote.setServiceName("jms");
+			vote.setTimeStamp("1");
+			RezxisVoteListener.i.voteMade(vote);
 		}
 		return true;
 	}

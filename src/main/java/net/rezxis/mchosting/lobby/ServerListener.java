@@ -75,6 +75,7 @@ public class ServerListener implements Listener {
 		ChatColor.LIGHT_PURPLE+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"                             --==REALM==--");*/
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true)
 	public void onInteractEntity(PlayerInteractEntityEvent event) {
 		if (event.getRightClicked() instanceof Player) {
@@ -138,12 +139,11 @@ public class ServerListener implements Listener {
 		if (player.isSupporter()) {
 			attachment.setPermission("gadgetsmenu.mysteryboxes.open.4", true);
 			attachment.setPermission("gadgetsmenu.mysteryboxes.open.5", true);
-			attachment.setPermission("gadgetsmenu.multipleboxes.*", true);
 		} else {
 			attachment.setPermission("gadgetsmenu.mysteryboxes.open.4", false);
 			attachment.setPermission("gadgetsmenu.mysteryboxes.open.5", false);
-			attachment.setPermission("gadgetsmenu.multipleboxes.*", false);
 		}
+		attachment.setPermission("gadgetsmenu.multipleboxes.*", true);
 		attachment.setPermission("gadgetsmenu.menuselector", true);
 		gadPlayer.giveMenuSelector();
 		

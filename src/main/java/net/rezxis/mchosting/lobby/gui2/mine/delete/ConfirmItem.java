@@ -37,7 +37,7 @@ public class ConfirmItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		if (phase == 3) {
+		if (phase == 2) {
 			DBServer server = Tables.getSTable().get(e.getWhoClicked().getUniqueId());
 			int coin = 0;
 			for (ShopItem item : server.getShop().getItems()) {

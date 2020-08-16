@@ -25,14 +25,18 @@ public class VoteBonusInfoItem extends GUIItem {
 	}
 	
 	private static ItemStack getIcon(DBVote dv, int kind) {
+		String name;
 		short damage = 0;
 		if (dv.getTotal() == 0) {
 			damage = 14;
+			name = ChatColor.RED+"";
 		} else {
 			if ((dv.getTotal() % 7) -1 <= kind) {
 				damage = 5;
+				name = ChatColor.GREEN+"";
 			} else {
 				damage = 14;
+				name = ChatColor.RED+"";
 			}
 		}
 		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE,1,damage);
@@ -55,6 +59,8 @@ public class VoteBonusInfoItem extends GUIItem {
 				}
 			}
 		}
+		im.setDisplayName(name+""+(kind+1)+"日目");
+		im.setLore(lore);
 		is.setItemMeta(im);
 		return is;
 	}

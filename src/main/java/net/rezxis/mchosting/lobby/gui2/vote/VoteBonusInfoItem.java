@@ -35,8 +35,13 @@ public class VoteBonusInfoItem extends GUIItem {
 				damage = 5;
 				name = ChatColor.GREEN+"";
 			} else {
-				damage = 14;
-				name = ChatColor.RED+"";
+				if (dv.getTotal() != 0 && dv.getTotal() % 7 == 0) {
+					damage = 5;
+					name = ChatColor.GREEN+"";
+				} else {
+					damage = 14;
+					name = ChatColor.RED+"";
+				}
 			}
 		}
 		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE,1,damage);

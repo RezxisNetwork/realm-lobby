@@ -72,6 +72,7 @@ public class ServerItem extends GUIItem {
 			if (dp.getRank().getOfflineBoot() && server.getDBServer().getStatus() == ServerStatus.STOP && dp.isOfflineBoot()) {
 				Lobby.instance.ws.send(new Gson().toJson(new SyncStartServer(server.getOwner().toString())));
 				e.getWhoClicked().sendMessage(ChatColor.AQUA+"起動中");
+				return GUIAction.CLOSE;
 			}
 		}
 		Lobby.instance.connect((Player) e.getWhoClicked(),server);

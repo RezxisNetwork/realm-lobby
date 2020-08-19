@@ -30,7 +30,7 @@ public class ServersMenu extends GUIWindow {
 		HashMap<Integer, GUIItem> map = new HashMap<>();
 		// TODO Auto-generated method stub
 		setItem(1, 5, new SortsItem(page,all,sort), map);
-		ArrayList<ServerWrapper> servers = ServerWrapper.getServers(all, sort);
+		ArrayList<ServerWrapper> servers = ServerWrapper.getServers(all, sort, true);
 		if (!all)
 			setItem(0, new ShowAllServers(sort), map);
 		if (servers.size() > 21*page)

@@ -44,8 +44,8 @@ public class ServerItem extends GUIItem {
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(server.getDisplayName());
 		ArrayList<String> lore = new ArrayList<>();
-		if (server.getMotd().contains("\n")) {
-			for (String line : server.getMotd().split("\n")) {
+		if (server.getMotd().contains("\\n")) {
+			for (String line : server.getMotd().split("\\n")) {
 				lore.add(line);
 			}
 		} else {

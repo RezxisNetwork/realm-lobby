@@ -44,7 +44,13 @@ public class ServerItem extends GUIItem {
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(server.getDisplayName());
 		ArrayList<String> lore = new ArrayList<>();
-		lore.add(server.getMotd());
+		if (server.getMotd().contains("\n")) {
+			for (String line : server.getMotd().split("\n")) {
+				lore.add(line);
+			}
+		} else {
+			lore.add(server.getMotd());
+		}
 		lore.add("");
 		int maxp = -1;
 		if (server.isDBServer()) {

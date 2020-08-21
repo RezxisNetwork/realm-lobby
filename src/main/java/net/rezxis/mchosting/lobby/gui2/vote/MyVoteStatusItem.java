@@ -32,6 +32,7 @@ public class MyVoteStatusItem extends GUIItem {
 		lores.add(ChatColor.GOLD+""+ChatColor.BOLD+"ストリーク : "+dbVote.getStreak());
 		lores.add(ChatColor.GREEN+""+ChatColor.BOLD+"合計投票回数 : "+dbVote.getTotal());
 		lores.add(ChatColor.AQUA+""+ChatColor.BOLD+"最終投票日時 : "+dbVote.getLastVote().toLocaleString());
+		lores.add(ChatColor.AQUA+""+ChatColor.BOLD+"クリックで投票リンクを表示");
 		im.setLore(lores);
 		is.setItemMeta(im);
 		return is;

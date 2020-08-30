@@ -52,6 +52,7 @@
 		<groupId>net.rezxis.mchosting</groupId>
 		<artifactId>Database</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<scope>provided</scope>
 	</dependency>
 	<dependency>
 		<groupId>net.rezxis.mchosting</groupId>

@@ -332,7 +332,7 @@ public class CommandHandler {
 					map.put("DL_PATH", "");
 					map.put("BUILD_NUMBER", "latest");
 					Set<String> portRange = new HashSet<>();
-					portRange.add("25565");
+					//portRange.add("25565");
 					api.createServer()
 					.setOwner(user)
 					.setName(player.getName())

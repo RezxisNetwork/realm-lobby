@@ -295,7 +295,7 @@ public class CommandHandler {
 					PteroApplication api = Lobby.instance.api;
 					User user = api.getUserManager().createUser().setEmail(args[1])
 					.setFirstName("rezxis")
-					.setFirstName("user")
+					.setLastName("user")
 					.setUserName(player.getName())
 					.setPassword(args[2])
 					.build().execute();

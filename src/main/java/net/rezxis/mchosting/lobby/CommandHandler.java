@@ -2,8 +2,12 @@ package net.rezxis.mchosting.lobby;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,6 +20,7 @@ import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
 import com.mattmalec.pterodactyl4j.DataType;
+import com.mattmalec.pterodactyl4j.PteroBuilder;
 import com.mattmalec.pterodactyl4j.application.entities.Allocation;
 import com.mattmalec.pterodactyl4j.application.entities.Egg;
 import com.mattmalec.pterodactyl4j.application.entities.PteroApplication;
@@ -321,13 +326,28 @@ public class CommandHandler {
 							break;
 						}
 					}
-					api.createServer().setCPU(200)
-					.setAllocations(allocation)
-					.setDescription(player.getName())
-					.setDisk(4, DataType.GB)
+					HashMap<String, String> map = new HashMap<>();
+					map.put("MINECRAFT_VERSION", "1.12.2");
+					map.put("SERVER_JARFILE", "server.jar");
+					map.put("DL_PATH", "");
+					map.put("BUILD_NUMBER", "latest");
+					Set<String> portRange = new HashSet<>();
+					portRange.add("25565");
+					api.createServer()
 					.setName(player.getName())
+					.setDescription(player.getName())
 					.setEgg(egg)
-					.setMemory(2, DataType.GB)
+					.setLocations(Collections.singleton(api.retrieveLocations().execute().get(0)))
+					.setAllocations(0)
+					.setDatabases(0)
+					.setCPU(200)
+					.setDisk(4, DataType.GB)
+					.setMemory(4, DataType.GB)
+					.setDockerImage(egg.getDockerImage())
+					.setDedicatedIP(false)
+					.setPortRange(portRange)
+					.startOnCompletion(false)
+					.setEnvironment(map)
 					.build().execute();
 				} else {
 					player.sendMessage(ChatColor.GREEN+"既にアカウントは発行されています。ログイン情報を忘れた場合は、Ticketでスタッフに問い合わせてください。");

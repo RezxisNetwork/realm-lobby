@@ -35,7 +35,7 @@ public class Lobby extends JavaPlugin {
 	public HashMap<UUID,DBPlayer> players = new HashMap<>();
 	public HashMap<UUID,Scoreboard> boards = new HashMap<>();
 	public HashMap<UUID, PermissionAttachment> perms = new HashMap<UUID, PermissionAttachment>();
-	public PteroApplication api = new PteroBuilder().setApplicationUrl("https://panel.rezxis.net").setToken("qI5udrGh6m4xupThI17PuqUw3zPDmXa3bsoPeEKvpLUSQOCJ").build().asApplication();
+	public PteroApplication api = new PteroBuilder().setApplicationUrl("https://panel.rezxis.net").setToken("NcLXBrShRAGu54z74NEAdueNGhcSp4lRQfHZ5KZ6ptFlgCH4").build().asApplication();
 	
 	@Override
 	public void onEnable() {

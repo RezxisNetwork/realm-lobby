@@ -3,7 +3,7 @@ package net.rezxis.mchosting.lobby;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
-import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
+import net.rezxis.mchosting.database.object .player.DBPlayer.Rank;
 import net.rezxis.mchosting.database.object.server.DBServer;
 import net.rezxis.mchosting.lobby.gui2.crate.CrateMenu;
 
@@ -121,14 +121,14 @@ public class ServerListener implements Listener {
 			event.getPlayer().sendMessage(ChatColor.RED+"あなたのサポーターランク期限は切れました。 期限 : "+player.getSupporterExpire().toLocaleString());
 			player.setSupporter(false);
 			update = true;
-			if (player.getPterodactyl() != null && player.getPterodactyl().isEmpty()) {
+			if (player.getPterodactyl() != null && !player.getPterodactyl().isEmpty()) {
 				User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
 				for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
 					server.getController().suspend().execute();
 				}
 			}
 		}
-		if (player.isSupporter() && player.getPterodactyl() != null && player.getPterodactyl().isEmpty()) {
+		if (player.isSupporter() && player.getPterodactyl() != null && !player.getPterodactyl().isEmpty()) {
 			User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
 			for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
 				if (server.isSuspended()) {

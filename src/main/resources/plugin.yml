@@ -29,6 +29,6 @@ commands:
   rankinfo:
     description: A command to check your rank
   voteinfo:
-    description: A commant to check you vote status
-  makevote:
-    description: debug
+    description: A command to check you vote status
+  custom:
+    description: A command to manage custom servers for Supporter

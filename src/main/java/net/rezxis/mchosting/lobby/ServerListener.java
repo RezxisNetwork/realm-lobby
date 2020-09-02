@@ -1,5 +1,6 @@
 package net.rezxis.mchosting.lobby;
 
+import net.md_5.bungee.api.chat.TextComponent;
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.player.DBPlayer.Rank;
@@ -34,6 +35,8 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import com.mattmalec.pterodactyl4j.application.entities.ApplicationServer;
+import com.mattmalec.pterodactyl4j.application.entities.User;
 import com.yapzhenyie.GadgetsMenu.api.GadgetsMenuAPI;
 import com.yapzhenyie.GadgetsMenu.player.PlayerManager;
 
@@ -104,14 +107,34 @@ public class ServerListener implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
+		boolean update = false;
 		event.setJoinMessage(null);
 		event.getPlayer().getInventory().setItem(4, menu);
 		DBPlayer player = Tables.getPTable().get(event.getPlayer().getUniqueId());
 		if (player.isExpiredRank()) {
 			player.setRank(Rank.NORMAL);
 			player.setOfflineBoot(false);
-			player.update();
+			update = true;
 			event.getPlayer().sendMessage(ChatColor.RED+"Rankの期限が切れました。");
+		}
+		if (player.isExpiredSupporter() && player.isSupporter()) {
+			event.getPlayer().sendMessage(ChatColor.RED+"あなたのサポーターランク期限は切れました。 期限 : "+player.getSupporterExpire().toLocaleString());
+			player.setSupporter(false);
+			update = true;
+			if (player.getPterodactyl() != null && player.getPterodactyl().isEmpty()) {
+				User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
+				for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
+					server.getController().suspend().execute();
+				}
+			}
+		}
+		if (player.isSupporter() && player.getPterodactyl() != null && player.getPterodactyl().isEmpty()) {
+			User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
+			for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
+				if (server.isSuspended()) {
+					server.getController().unSuspend().execute();
+				}
+			}
 		}
 		for (Scoreboard board : Lobby.instance.boards.values()) {
 			board.getTeam(player.getRank().name()).addEntry(event.getPlayer().getName());
@@ -129,7 +152,7 @@ public class ServerListener implements Listener {
 		if (player.getVault() > 0) {
 			gadPlayer.giveMysteryBoxes(System.currentTimeMillis()+(24 * 3600 * 1000 * 7), true, null, player.getVault());
 			player.setVault(0);
-			player.update();
+			update = true;
 		}
 		Lobby.instance.perms.put(event.getPlayer().getUniqueId(), attachment);
 		attachment.setPermission("gadgetsmenu.animations.*", true);
@@ -158,6 +181,9 @@ public class ServerListener implements Listener {
 		event.getPlayer().setScoreboard(board);
 		Lobby.instance.boards.put(event.getPlayer().getUniqueId(), board);
 		event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
+		if (update) {
+			player.update();
+		}
 	}
 	
 	@EventHandler

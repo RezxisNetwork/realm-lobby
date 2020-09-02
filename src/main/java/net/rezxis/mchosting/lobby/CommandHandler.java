@@ -15,6 +15,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
+import com.mattmalec.pterodactyl4j.DataType;
+import com.mattmalec.pterodactyl4j.application.entities.Allocation;
+import com.mattmalec.pterodactyl4j.application.entities.Egg;
+import com.mattmalec.pterodactyl4j.application.entities.PteroApplication;
+import com.mattmalec.pterodactyl4j.application.entities.User;
 import com.vexsoftware.votifier.model.Vote;
 
 import net.rezxis.mchosting.database.Tables;
@@ -277,13 +282,63 @@ public class CommandHandler {
 			}
 		} else if (name.equalsIgnoreCase("voteinfo")) {
 			new VoteStatusMenu((Player)sender).delayShow();
-		} else if (name.equalsIgnoreCase("makevote")) {
-			Vote vote = new Vote();
-			vote.setUsername("1yq");
-			vote.setAddress("127.0.0.1");
-			vote.setServiceName("jms");
-			vote.setTimeStamp("1");
-			RezxisVoteListener.i.voteMade(vote);
+		} else if (name.equalsIgnoreCase("custom")) {
+			Player player = (Player) sender;
+			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
+			if (!dp.isSupporter()) {
+				player.sendMessage(ChatColor.RED+"あなたはサポーターではないので、この機能を使用できません。");
+				player.sendMessage(ChatColor.GREEN+"サポーターランク購入は https://store.rezxis.net　から購入できます");
+				return true;
+			}
+			if (args.length == 3) {
+				if (dp.getPterodactyl() == null || dp.getPterodactyl().isEmpty()) {
+					PteroApplication api = Lobby.instance.api;
+					User user = api.getUserManager().createUser().setEmail(args[1])
+					.setFirstName("rezxis")
+					.setFirstName("user")
+					.setUserName(player.getName())
+					.setPassword(args[2])
+					.build().execute();
+					if (user == null) {
+						player.sendMessage(ChatColor.RED+"アカウント作成に問題が発生しました。Ticketでスタッフに問い合わせてください。");
+						return true;
+					} else {
+						dp.setPterodactyl(user.getId().toLowerCase());
+						dp.update();
+					}
+					player.sendMessage(ChatColor.GREEN+"アカウントを作成しました。 username : "+player.getName()+", password : "+args[2]);
+					long allocation = -1;
+					for (Allocation alloc : api.retrieveAllocationsByNode(api.retrieveNodesByName("rezxis", false).execute().get(0)).execute()) {
+						if (alloc.getIP().equalsIgnoreCase("10.0.0.3")) {
+							allocation = alloc.getIdLong();
+							break;
+						}
+					}
+					Egg egg = null;
+					for (Egg e : api.retrieveEggs().execute()) {
+						if (e.getIdLong() == 16) {
+							egg = e;
+							break;
+						}
+					}
+					api.createServer().setCPU(200)
+					.setAllocations(allocation)
+					.setDescription(player.getName())
+					.setDisk(4, DataType.GB)
+					.setName(player.getName())
+					.setEgg(egg)
+					.setMemory(2, DataType.GB)
+					.build().execute();
+				} else {
+					player.sendMessage(ChatColor.GREEN+"既にアカウントは発行されています。ログイン情報を忘れた場合は、Ticketでスタッフに問い合わせてください。");
+				}
+			} else {
+				if (dp.getPterodactyl() == null || dp.getPterodactyl().isEmpty()) {
+					player.sendMessage(ChatColor.AQUA+""+ChatColor.BOLD+"/custom create <email> <password> でアカウントを発行できます。");
+				} else {
+					player.sendMessage(ChatColor.GREEN+"https://panel.rezxis.net から発行したアカウントでカスタムサーバーを管理できます。");
+				}
+			}
 		}
 		return true;
 	}

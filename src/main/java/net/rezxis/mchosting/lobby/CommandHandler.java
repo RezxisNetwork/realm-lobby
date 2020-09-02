@@ -334,6 +334,7 @@ public class CommandHandler {
 					Set<String> portRange = new HashSet<>();
 					portRange.add("25565");
 					api.createServer()
+					.setOwner(user)
 					.setName(player.getName())
 					.setDescription(player.getName())
 					.setEgg(egg)

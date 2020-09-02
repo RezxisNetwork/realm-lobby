@@ -292,7 +292,7 @@ public class CommandHandler {
 			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
 			if (!dp.isSupporter()) {
 				player.sendMessage(ChatColor.RED+"あなたはサポーターではないので、この機能を使用できません。");
-				player.sendMessage(ChatColor.GREEN+"サポーターランク購入は https://store.rezxis.net　から購入できます");
+				player.sendMessage(ChatColor.GREEN+"サポーターランク購入は https://store.rezxis.net から購入できます");
 				return true;
 			}
 			if (args.length == 3) {

@@ -289,7 +289,8 @@ public class CommandHandler {
 			new VoteStatusMenu((Player)sender).delayShow();
 		} else if (name.equalsIgnoreCase("custom")) {
 			Player player = (Player) sender;
-			DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
+			player.sendMessage(ChatColor.RED+"現在この機能は無効化されています。");
+			/*DBPlayer dp = Tables.getPTable().get(player.getUniqueId());
 			if (!dp.isSupporter()) {
 				player.sendMessage(ChatColor.RED+"あなたはサポーターではないので、この機能を使用できません。");
 				player.sendMessage(ChatColor.GREEN+"サポーターランク購入は https://store.rezxis.net から購入できます");
@@ -359,7 +360,7 @@ public class CommandHandler {
 				} else {
 					player.sendMessage(ChatColor.GREEN+"https://panel.rezxis.net から発行したアカウントでカスタムサーバーを管理できます。");
 				}
-			}
+			}*/
 		}
 		return true;
 	}

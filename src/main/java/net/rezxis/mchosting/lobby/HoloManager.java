@@ -7,10 +7,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.StringUtil;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.google.gson.Gson;
+import com.mysql.cj.util.StringUtils;
 
 import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Tables;
@@ -48,7 +50,9 @@ public class HoloManager {
 	}
 	
 	private static void updateVoteRanking() {
-		if (voteRanking == null) return;
+		if (voteRanking == null) {
+			return;
+		}
 		voteRanking.clearLines();
 		voteRanking.appendTextLine(ChatColor.GOLD+""+ChatColor.BOLD+"----==投票回数ランキング==----");
 		int i = 1;
@@ -66,7 +70,7 @@ public class HoloManager {
 			} else if (player.getRank() != Rank.NORMAL) {
 				prefix = player.getRank().getPrefix()+" "+name;
 			}
-				voteRanking.appendTextLine(ChatColor.GREEN+String.valueOf(i)+" : "+prefix);
+				voteRanking.appendTextLine(ChatColor.GREEN+String.valueOf(i)+" : "+prefix+ChatColor.GOLD+""+ChatColor.BOLD+" - "+String.valueOf(vote.getTotal())+"回");
 			i++;
 		}
 	}
@@ -82,6 +86,7 @@ public class HoloManager {
 				n = true;
 				kv = new KeyValue(-1,dbLocVoteRanking,"");
 			}
+			
 			kv.setValue(gson.toJson(player.getLocation().serialize()));
 			if (n) {
 				Tables.getRezxisKVTable().insert(kv);

@@ -69,6 +69,7 @@ public class Lobby extends JavaPlugin {
 				ws.connect();
 		}).start();
 		Votifier.getInstance().getListeners().add(new RezxisVoteListener());
+		HoloManager.init(this);
 	}
 	
 	@Override

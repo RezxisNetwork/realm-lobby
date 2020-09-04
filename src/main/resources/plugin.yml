@@ -1,7 +1,7 @@
 name: RezxisMCHosting
 main: net.rezxis.mchosting.lobby.Lobby
 version: 0.2
-softdepend: [Votifier]
+softdepend: [Votifier,HolographicDisplays]
 depend: [RezxisSQLPlugin]
 commands:
   menu:
@@ -32,3 +32,5 @@ commands:
     description: A command to check you vote status
   custom:
     description: A command to manage custom servers for Supporter
+  ranking:
+    description: A command for staffs

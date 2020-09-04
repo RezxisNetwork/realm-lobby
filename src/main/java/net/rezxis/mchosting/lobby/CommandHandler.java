@@ -361,6 +361,11 @@ public class CommandHandler {
 					player.sendMessage(ChatColor.GREEN+"https://panel.rezxis.net から発行したアカウントでカスタムサーバーを管理できます。");
 				}
 			}*/
+		} else if (name.equalsIgnoreCase("ranking")) {
+			if (sender.isOp()) {
+				Player p = (Player) sender;
+				HoloManager.handleCommand(args, p);
+			}
 		}
 		return true;
 	}

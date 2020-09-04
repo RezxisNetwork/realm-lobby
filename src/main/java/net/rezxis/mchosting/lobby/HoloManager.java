@@ -48,6 +48,7 @@ public class HoloManager {
 	}
 	
 	private static void updateVoteRanking() {
+		if (voteRanking == null) return;
 		voteRanking.clearLines();
 		voteRanking.appendTextLine(ChatColor.GOLD+""+ChatColor.BOLD+"----==投票回数ランキング==----");
 		int i = 1;

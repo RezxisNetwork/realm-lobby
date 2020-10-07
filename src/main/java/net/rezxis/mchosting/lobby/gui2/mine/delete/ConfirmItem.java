@@ -12,7 +12,8 @@ import net.md_5.bungee.api.ChatColor;
 import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.database.object.player.DBPlayer;
 import net.rezxis.mchosting.database.object.server.DBServer;
-import net.rezxis.mchosting.database.object.server.ShopItem;
+import net.rezxis.mchosting.database.object.server.DBShopItem;
+import net.rezxis.mchosting.database.object.server.DBShopItembase;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;
@@ -40,8 +41,9 @@ public class ConfirmItem extends GUIItem {
 		if (phase == 2) {
 			DBServer server = Tables.getSTable().get(e.getWhoClicked().getUniqueId());
 			int coin = 0;
-			for (ShopItem item : server.getShop().getItems()) {
+			for (DBShopItem item : Tables.getSiTable().getShopItems(server.getId())) {
 				coin += item.getEarned();
+				item.delete();
 			}
 			DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 			player.addCoin(coin);

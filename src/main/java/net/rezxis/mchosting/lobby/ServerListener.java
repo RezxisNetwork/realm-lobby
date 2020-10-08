@@ -69,6 +69,9 @@ public class ServerListener implements Listener {
 	@EventHandler
 	public void onLeft(PlayerQuitEvent event) {
 		event.setQuitMessage(null);
+		Lobby.instance.players.remove(event.getPlayer().getUniqueId());
+		Lobby.instance.perms.remove(event.getPlayer().getUniqueId());
+		Lobby.instance.boards.remove(event.getPlayer().getUniqueId());
 	}
 	
 	@EventHandler

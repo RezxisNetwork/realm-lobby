@@ -30,6 +30,7 @@ public class CreateServerMenu extends GUIWindow {
 		setItem(0, new ServerNameItem(this), map);
 		setItem(1, new WorldTypeItem(this), map);
 		setItem(2, new ServerTypeItem(this), map);
+		setItem(3, new ServerVersionItem(this), map);
 		setItem(4, new DoCreateServerItem(this), map);
 		return map;
 	}

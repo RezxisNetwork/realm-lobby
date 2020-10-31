@@ -33,6 +33,7 @@ public class ServerVersionItem extends GUIItem {
 				lore.add(ChatColor.GRAY+v.name());
 			}
 		}
+		im.setLore(lore);
 		is.setItemMeta(im);
 		return is;
 	}

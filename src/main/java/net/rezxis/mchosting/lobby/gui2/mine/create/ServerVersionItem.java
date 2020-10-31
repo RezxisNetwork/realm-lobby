@@ -28,9 +28,9 @@ public class ServerVersionItem extends GUIItem {
 		ArrayList<String> lore = new ArrayList<String>();
 		for (Version v : Version.values()) {
 			if (menu.version == v) {
-				lore.add(ChatColor.AQUA+v.name());
+				lore.add(ChatColor.AQUA+v.getFriendly());
 			} else {
-				lore.add(ChatColor.GRAY+v.name());
+				lore.add(ChatColor.GRAY+v.getFriendly());
 			}
 		}
 		im.setLore(lore);

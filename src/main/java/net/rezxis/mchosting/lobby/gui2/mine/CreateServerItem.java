@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
+import net.rezxis.mchosting.database.object.server.Version;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.gui2.mine.create.CreateServerMenu;
@@ -27,7 +28,7 @@ public class CreateServerItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		new CreateServerMenu((Player)e.getWhoClicked(),e.getWhoClicked().getName()+"のサーバー", "DEFAULT", "NORMAL").delayShow();
+		new CreateServerMenu((Player)e.getWhoClicked(),e.getWhoClicked().getName()+"のサーバー", "DEFAULT", "NORMAL", Version.values()[0]).delayShow();
 		return GUIAction.CLOSE;
 	}
 }

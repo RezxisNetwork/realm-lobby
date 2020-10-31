@@ -3,7 +3,6 @@ package net.rezxis.mchosting.lobby.gui2.mine.create;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,15 +16,11 @@ import net.rezxis.mchosting.gui.GUIItem;
 
 public class ServerTypeItem extends GUIItem {
 
-	private String stype;
-	private String type;
-	private String name;
+	private CreateServerMenu menu;
 	
-	public ServerTypeItem(String name, String type, String stype) {
-		super(getIconWorldType(new String[] {"NORMAL","CUSTOM"},stype));
-		this.stype = stype;
-		this.type = type;
-		this.name = name;
+	public ServerTypeItem(CreateServerMenu menu) {
+		super(getIconWorldType(new String[] {"NORMAL","CUSTOM"},menu.stype));
+		this.menu = menu;
 	}
 	
 	private static ItemStack getIconWorldType(String[] all, String current) {
@@ -49,17 +44,16 @@ public class ServerTypeItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		if (stype.equalsIgnoreCase("NORMAL")) {
-			stype = "CUSTOM";
-		} else if (stype.equalsIgnoreCase("CUSTOM")) {
-			stype = "NORMAL";
+		if (menu.stype.equalsIgnoreCase("NORMAL")) {
+			menu.stype = "CUSTOM";
+		} else if (menu.stype.equalsIgnoreCase("CUSTOM")) {
+			menu.stype = "NORMAL";
 		}
 		DBPlayer player = Tables.getPTable().get(e.getWhoClicked().getUniqueId());
 		if (player.getRank() != Rank.DEVELOPER) {
-			stype = "NORMAL";
+			menu.stype = "NORMAL";
 			e.getWhoClicked().sendMessage(ChatColor.RED+"この機能は現在調整中です。");
 		}
-		new CreateServerMenu((Player)e.getWhoClicked(), name, type, stype).delayShow();
-		return GUIAction.CLOSE;
+		return GUIAction.UPDATE;
 	}
 }

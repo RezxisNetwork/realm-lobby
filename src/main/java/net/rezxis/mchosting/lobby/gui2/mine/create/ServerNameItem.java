@@ -18,15 +18,11 @@ import net.rezxis.mchosting.gui.anvil.AnvilGUI;
 
 public class ServerNameItem extends GUIItem {
 
-	private String name;
-	private String type;
-	private String stype;
+	private CreateServerMenu menu;
 	
-	public ServerNameItem(String name, String type, String stype) {
-		super(getIcon(name));
-		this.name = name;
-		this.type = type;
-		this.stype = stype;
+	public ServerNameItem(CreateServerMenu menu) {
+		super(getIcon(menu.name));
+		this.menu = menu;
 	}
 	
 	private static ItemStack getIcon(String name) {
@@ -51,7 +47,7 @@ public class ServerNameItem extends GUIItem {
 				})
 				.onComplete((pl,text) -> {
 					if (text == null || text.equalsIgnoreCase("")) {
-						return AnvilGUI.Response.text(name);
+						return AnvilGUI.Response.text(menu.name);
 					}
 					String[] denied = new String[] {"/","\\","."};
 					if (Tables.getSTable().getServerByName(text) != null) {
@@ -69,12 +65,12 @@ public class ServerNameItem extends GUIItem {
 					}
 					Bukkit.getScheduler().scheduleAsyncDelayedTask(Lobby.instance, new Runnable() {
 						public void run() {
-							new CreateServerMenu(pl,text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)), type, stype).delayShow();
+							new CreateServerMenu(pl,text.replaceAll("&", String.valueOf(ChatColor.COLOR_CHAR)), menu.type, menu.stype, menu.version).delayShow();
 						}
 					}, 2);
 					return AnvilGUI.Response.close();
 				})
-				.text(name)
+				.text(menu.name)
 				.plugin(Lobby.instance)
 				.open((Player) e.getWhoClicked());
 			}

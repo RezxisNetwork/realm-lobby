@@ -14,15 +14,11 @@ import net.rezxis.mchosting.gui.GUIItem;
 
 public class WorldTypeItem extends GUIItem {
 
-	private String type;
-	private String name;
-	private String stype;
+	private CreateServerMenu menu;
 	
-	public WorldTypeItem(String name, String type, String stype) {
-		super(getIconWorldType(new String[] {"DEFAULT","FLAT","VOID"},type));
-		this.type = type;
-		this.name = name;
-		this.stype = stype;
+	public WorldTypeItem(CreateServerMenu menu) {
+		super(getIconWorldType(new String[] {"DEFAULT","FLAT","VOID"},menu.type));
+		this.menu = menu;
 	}
 	
 	private static ItemStack getIconWorldType(String[] all, String current) {
@@ -44,14 +40,14 @@ public class WorldTypeItem extends GUIItem {
 
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		if (type.equalsIgnoreCase("DEFAULT")) {
-			type = "FLAT";
-		} else if (type.equalsIgnoreCase("FLAT")) {
-			type = "VOID";
-		} else if (type.equalsIgnoreCase("VOID")) {
-			type = "DEFAULT";
+		if (menu.type.equalsIgnoreCase("DEFAULT")) {
+			menu.type = "FLAT";
+		} else if (menu.type.equalsIgnoreCase("FLAT")) {
+			menu.type = "VOID";
+		} else if (menu.type.equalsIgnoreCase("VOID")) {
+			menu.type = "DEFAULT";
 		}
-		new CreateServerMenu((Player)e.getWhoClicked(), name, type, stype).delayShow();
+		new CreateServerMenu((Player)e.getWhoClicked(), menu.name, menu.type, menu.stype, menu.version).delayShow();
 		return GUIAction.CLOSE;
 	}
 }

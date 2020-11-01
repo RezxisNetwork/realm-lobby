@@ -128,5 +128,10 @@
 		<version>1</version>
 		<scope>provided</scope>
 	</dependency>
+	<dependency>
+	    <groupId>com.github.WesJD.AnvilGUI</groupId>
+	    <artifactId>anvilgui</artifactId>
+	    <version>master-SNAPSHOT</version>
+	</dependency>
   </dependencies>
 </project>

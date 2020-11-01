@@ -14,7 +14,7 @@ import net.rezxis.mchosting.database.Tables;
 import net.rezxis.mchosting.gui.GUIAction;
 import net.rezxis.mchosting.gui.GUIItem;
 import net.rezxis.mchosting.lobby.Lobby;
-import net.rezxis.mchosting.gui.anvil.AnvilGUI;
+import net.wesjd.anvilgui.AnvilGUI;
 
 public class ServerNameItem extends GUIItem {
 

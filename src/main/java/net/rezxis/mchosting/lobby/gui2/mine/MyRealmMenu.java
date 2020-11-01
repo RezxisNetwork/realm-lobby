@@ -12,6 +12,9 @@ import net.rezxis.mchosting.gui.GUIWindow;
 import net.rezxis.mchosting.lobby.Lobby;
 
 public class MyRealmMenu extends GUIWindow {
+	
+	protected DBServer server;
+	
 	public MyRealmMenu(Player player) {
 		super(player,"Server Manager", 1, Lobby.instance);
 	}
@@ -19,7 +22,7 @@ public class MyRealmMenu extends GUIWindow {
 	@Override
 	public HashMap<Integer, GUIItem> getOptions() {
 		HashMap<Integer, GUIItem> map = new HashMap<>();
-		DBServer server = Tables.getSTable().get(this.getPlayer().getUniqueId());
+		server = Tables.getSTable().get(this.getPlayer().getUniqueId());
 		if (server == null) {
 			setItem(4, new CreateServerItem(), map);
 		} else {
@@ -28,9 +31,10 @@ public class MyRealmMenu extends GUIWindow {
 				setItem(4, new ConnectItem(), map);
 			} else if (server.getStatus() == ServerStatus.STOP) {
 				setItem(1, new WorldManageItem(), map);
-				setItem(2, new RenameItem(server), map);
-				setItem(3, new RenameMotdItem(server), map);
-				setItem(6, new CommandBlockItem(server), map);
+				setItem(2, new RenameItem(this), map);
+				setItem(3, new RenameMotdItem(this), map);
+				setItem(4, new ServerVersionItem(this), map);
+				setItem(6, new CommandBlockItem(this), map);
 				setItem(7, new BackupMenuItem(), map);
 				setItem(8, new DeleteServerItem(), map);
 			}

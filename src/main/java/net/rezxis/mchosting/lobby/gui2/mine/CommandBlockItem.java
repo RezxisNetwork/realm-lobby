@@ -14,11 +14,11 @@ import net.rezxis.mchosting.gui.GUIItem;
 
 public class CommandBlockItem extends GUIItem {
 
-	private DBServer server;
+	private MyRealmMenu menu;
 	
-	public CommandBlockItem(DBServer server) {
-		super(getIcon(server));
-		this.server = server;
+	public CommandBlockItem(MyRealmMenu menu) {
+		super(getIcon(menu.server));
+		this.menu = menu;
 	}
 
 	private static ItemStack getIcon(DBServer server) {
@@ -40,8 +40,8 @@ public class CommandBlockItem extends GUIItem {
 	
 	@Override
 	public GUIAction invClick(InventoryClickEvent e) {
-		server.setCmd(!server.isCmd());
-		server.update();
+		menu.server.setCmd(!menu.server.isCmd());
+		menu.server.update();
 		return GUIAction.UPDATE;
 	}
 }

@@ -18,10 +18,9 @@ import net.wesjd.anvilgui.AnvilGUI;
 import net.rezxis.mchosting.lobby.Lobby;
 
 public class RenameItem extends GUIItem {
-
-
-	public RenameItem(DBServer server) {
-		super(getIcon(server));
+	
+	public RenameItem(MyRealmMenu menu) {
+		super(getIcon(menu.server));
 	}
 	
 	private static ItemStack getIcon(DBServer server) {

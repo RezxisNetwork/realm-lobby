@@ -19,8 +19,8 @@ import net.wesjd.anvilgui.AnvilGUI;
 
 public class RenameMotdItem extends GUIItem {
 	
-	public RenameMotdItem(DBServer server) {
-		super(getIcon(server));
+	public RenameMotdItem(MyRealmMenu menu) {
+		super(getIcon(menu.server));
 	}
 	
 	private static ItemStack getIcon(DBServer server) {

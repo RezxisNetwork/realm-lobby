@@ -35,8 +35,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import com.mattmalec.pterodactyl4j.application.entities.ApplicationServer;
-import com.mattmalec.pterodactyl4j.application.entities.User;
 import com.yapzhenyie.GadgetsMenu.api.GadgetsMenuAPI;
 import com.yapzhenyie.GadgetsMenu.player.PlayerManager;
 
@@ -124,20 +122,6 @@ public class ServerListener implements Listener {
 			event.getPlayer().sendMessage(ChatColor.RED+"あなたのサポーターランク期限は切れました。 期限 : "+player.getSupporterExpire().toLocaleString());
 			player.setSupporter(false);
 			update = true;
-			if (player.getPterodactyl() != null && !player.getPterodactyl().isEmpty()) {
-				User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
-				for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
-					server.getController().suspend().execute();
-				}
-			}
-		}
-		if (player.isSupporter() && player.getPterodactyl() != null && !player.getPterodactyl().isEmpty()) {
-			User user = Lobby.instance.api.retrieveUserById(player.getPterodactyl()).execute();
-			for (ApplicationServer server : Lobby.instance.api.retrieveServersByOwner(user).execute()) {
-				if (server.isSuspended()) {
-					server.getController().unSuspend().execute();
-				}
-			}
 		}
 		for (Scoreboard board : Lobby.instance.boards.values()) {
 			board.getTeam(player.getRank().name()).addEntry(event.getPlayer().getName());

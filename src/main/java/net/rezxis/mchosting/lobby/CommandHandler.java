@@ -19,12 +19,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
-import com.mattmalec.pterodactyl4j.DataType;
-import com.mattmalec.pterodactyl4j.PteroBuilder;
-import com.mattmalec.pterodactyl4j.application.entities.Allocation;
-import com.mattmalec.pterodactyl4j.application.entities.Egg;
-import com.mattmalec.pterodactyl4j.application.entities.PteroApplication;
-import com.mattmalec.pterodactyl4j.application.entities.User;
 import com.vexsoftware.votifier.model.Vote;
 
 import net.rezxis.mchosting.database.Tables;

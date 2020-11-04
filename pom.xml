@@ -63,11 +63,6 @@
   		<artifactId>holographicdisplays-api</artifactId>
   		<version>2.4.4</version>
 	</dependency>
-  	<dependency>
-  		<groupId>PterodactylAPI</groupId>
-  		<artifactId>PterodactylAPI</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
 	<dependency>
 		<groupId>net.rezxis.mchosting</groupId>
 		<artifactId>Database</artifactId>

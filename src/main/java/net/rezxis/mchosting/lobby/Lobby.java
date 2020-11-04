@@ -14,8 +14,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.google.gson.Gson;
-import com.mattmalec.pterodactyl4j.PteroBuilder;
-import com.mattmalec.pterodactyl4j.application.entities.PteroApplication;
 import com.vexsoftware.votifier.Votifier;
 
 import net.md_5.bungee.api.ChatColor;
@@ -35,8 +33,7 @@ public class Lobby extends JavaPlugin {
 	public HashMap<UUID,DBPlayer> players = new HashMap<>();
 	public HashMap<UUID,Scoreboard> boards = new HashMap<>();
 	public HashMap<UUID, PermissionAttachment> perms = new HashMap<UUID, PermissionAttachment>();
-	public PteroApplication api = new PteroBuilder().setApplicationUrl("https://panel.rezxis.net").setToken("NcLXBrShRAGu54z74NEAdueNGhcSp4lRQfHZ5KZ6ptFlgCH4").build().asApplication();
-	
+
 	@Override
 	public void onEnable() {
 		instance = this;
